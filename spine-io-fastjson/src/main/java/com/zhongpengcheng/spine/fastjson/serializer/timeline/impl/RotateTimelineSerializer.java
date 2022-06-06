@@ -3,11 +3,11 @@ package com.zhongpengcheng.spine.fastjson.serializer.timeline.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhongpengcheng.spine.fastjson.serializer.timeline.TimelineSerializer;
-import com.zhongpengcheng.spine.pojo.timeline.ITimeline;
-import com.zhongpengcheng.spine.pojo.timeline.RotateTimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.ITimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.RotateTimeline;
 
 /**
- * {@link com.zhongpengcheng.spine.pojo.timeline.RotateTimeline}序列化器
+ * {@link RotateTimeline}序列化器
  *
  * @author zhongpengcheng
  * @since 2022-02-18 17:03:01

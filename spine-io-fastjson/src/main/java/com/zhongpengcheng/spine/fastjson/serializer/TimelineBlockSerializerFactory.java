@@ -1,11 +1,5 @@
 package com.zhongpengcheng.spine.fastjson.serializer;
 
-import com.zhongpengcheng.spine.fastjson.serializer.impl.BoneBlockSerializer;
-import com.zhongpengcheng.spine.fastjson.serializer.impl.IkBlockSerializer;
-import com.zhongpengcheng.spine.fastjson.serializer.impl.PathBlockSerializer;
-import com.zhongpengcheng.spine.fastjson.serializer.impl.SlotBlockSerializer;
-import com.zhongpengcheng.spine.io.reader.AnimationsReader;
-
 import java.util.HashMap;
 
 /**
@@ -17,10 +11,6 @@ public class TimelineBlockSerializerFactory {
 
     static {
         serializerCache = new HashMap<>();
-        serializerCache.put(AnimationsReader.TimelinesReader.SLOT_KEY, new SlotBlockSerializer());
-        serializerCache.put(AnimationsReader.TimelinesReader.BONE_KEY, new BoneBlockSerializer());
-        serializerCache.put(AnimationsReader.TimelinesReader.IK_KEY, new IkBlockSerializer());
-        serializerCache.put(AnimationsReader.TimelinesReader.PATH_KEY, new PathBlockSerializer());
     }
 
     /**

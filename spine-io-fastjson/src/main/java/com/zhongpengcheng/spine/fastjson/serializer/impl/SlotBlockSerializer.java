@@ -1,13 +1,12 @@
 package com.zhongpengcheng.spine.fastjson.serializer.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhongpengcheng.spine.fastjson.serializer.timeline.TimelineSerializerFactory;
 import com.zhongpengcheng.spine.fastjson.serializer.TimelineBlockSerializer;
-import com.zhongpengcheng.spine.pojo.timeline.AttachmentTimeline;
-import com.zhongpengcheng.spine.pojo.timeline.ColorTimeline;
-import com.zhongpengcheng.spine.pojo.timeline.ITimeline;
-import com.zhongpengcheng.spine.pojo.timeline.TwoColorTimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.AttachmentTimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.ColorTimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.ITimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.TwoColorTimeline;
 
 import java.util.List;
 

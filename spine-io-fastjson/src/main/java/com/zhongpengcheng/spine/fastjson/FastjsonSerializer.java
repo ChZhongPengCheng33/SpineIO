@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhongpengcheng.spine.exception.SkeletonIOException;
 import com.zhongpengcheng.spine.fastjson.serializer.TimelineBlockSerializer;
 import com.zhongpengcheng.spine.fastjson.serializer.TimelineBlockSerializerFactory;
-import com.zhongpengcheng.spine.io.serializer.ISerializer;
-import com.zhongpengcheng.spine.pojo.*;
-import com.zhongpengcheng.spine.pojo.attachment.*;
+import com.zhongpengcheng.spine.io.v35.pojo.*;
+import com.zhongpengcheng.spine.io.v35.pojo.attachment.*;
+import com.zhongpengcheng.spine.io.v35.serializer.ISerializer;
 import com.zhongpengcheng.spine.util.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 

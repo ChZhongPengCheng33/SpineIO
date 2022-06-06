@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.util;
 
-import com.zhongpengcheng.spine.io.SpineDataInputStream;
+import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
@@ -21,9 +21,9 @@ public class IOUtil {
      * @param file 目标文件
      * @return 可能为空
      */
-    public static SpineDataInputStream inputStreamOf(File file) {
+    public static Spine35DataInputStream inputStreamOf(File file) {
         try {
-            return new SpineDataInputStream(new BufferedInputStream(new FileInputStream(file), 512));
+            return new Spine35DataInputStream(new BufferedInputStream(new FileInputStream(file), 512));
         } catch (FileNotFoundException e) {
             log.error("从文件读取流异常：" + file.getName(), e);
         }
