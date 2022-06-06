@@ -1,14 +1,11 @@
 package com.zhongpengcheng.spine.enums;
 
-import lombok.Getter;
-
 /**
  * 确定骨骼如何从父骨骼继承世界变换
  *
  * @author ZhongPengCheng
  * @since 2021-03-02 1:56:00
  */
-@Getter
 public enum TransformMode {
     /**
      * 正常
@@ -43,5 +40,13 @@ public enum TransformMode {
     TransformMode(String code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

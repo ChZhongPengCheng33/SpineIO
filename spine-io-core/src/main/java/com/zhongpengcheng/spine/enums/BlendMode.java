@@ -1,13 +1,10 @@
 package com.zhongpengcheng.spine.enums;
 
-import lombok.Getter;
-
 /**
  *
  * @author ZhongPengCheng
  * @since 2021-03-02 1:37:00
  */
-@Getter
 public enum BlendMode {
     NORMAL("normal", "基础渲染模式"),
     ADDITIVE("additive", "添加剂（机翻）"),
@@ -20,5 +17,13 @@ public enum BlendMode {
     BlendMode(String code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

@@ -1,12 +1,9 @@
 package com.zhongpengcheng.spine.enums;
 
-import lombok.Getter;
-
 /**
  * @author ZhongPengCheng
  * @since 2021-03-02 18:18:00
  */
-@Getter
 public enum RotateMode {
     TANGENT("tangent", "切线"),
     CHAIN("chain", "链"),
@@ -18,5 +15,13 @@ public enum RotateMode {
     RotateMode(String code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }
