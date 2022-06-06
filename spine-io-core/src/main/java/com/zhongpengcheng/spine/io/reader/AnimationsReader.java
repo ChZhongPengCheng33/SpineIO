@@ -12,7 +12,6 @@ import java.util.*;
 
 /**
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2022-01-26 20:50:00
  */
 @Slf4j

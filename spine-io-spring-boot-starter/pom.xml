@@ -10,5 +10,5 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>spine-io-spring-boot-starter</artifactId>
-    <name>starter模块</name>
+    <name>SpineIO starter模块</name>
 </project>

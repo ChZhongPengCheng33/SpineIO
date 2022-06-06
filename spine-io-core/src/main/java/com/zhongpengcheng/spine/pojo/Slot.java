@@ -4,8 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
+ * 插槽
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2021-03-02 1:20:00
  */
 @Data

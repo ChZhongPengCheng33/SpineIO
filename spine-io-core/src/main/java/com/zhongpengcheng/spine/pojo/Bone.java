@@ -6,7 +6,6 @@ import lombok.Data;
 /**
  * Bone部分数据
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2021-03-02 0:35:00
  */
 @Data

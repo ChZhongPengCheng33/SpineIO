@@ -9,7 +9,6 @@ import java.util.List;
  * 约束
  *
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2021-03-02 2:03:00
  */
 @Builder

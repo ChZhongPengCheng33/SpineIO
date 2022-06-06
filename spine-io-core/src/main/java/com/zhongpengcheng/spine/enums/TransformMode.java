@@ -4,8 +4,8 @@ import lombok.Getter;
 
 /**
  * 确定骨骼如何从父骨骼继承世界变换
+ *
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2021-03-02 1:56:00
  */
 @Getter

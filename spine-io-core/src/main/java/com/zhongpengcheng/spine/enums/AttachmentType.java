@@ -4,8 +4,7 @@ import lombok.Getter;
 
 /**
  * @author ZhongPengCheng
- * @version 1.0
- * @date 2021-03-02 18:37:00
+ * @since 2021-03-02 18:37:00
  */
 @Getter
 public enum AttachmentType {

@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 /**
  * 骨骼文件头信息
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2021-03-01 23:20:00
  */
 @Data

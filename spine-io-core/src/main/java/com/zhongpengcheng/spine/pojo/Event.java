@@ -5,8 +5,7 @@ import lombok.Data;
 
 /**
  * @author ZhongPengCheng
- * @version 1.0
- * @date 2021-03-03 14:28:00
+ * @since 2021-03-03 14:28:00
  */
 @Data
 @Builder

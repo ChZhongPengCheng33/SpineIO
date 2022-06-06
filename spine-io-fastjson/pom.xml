@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spine-io-fastjson</artifactId>
-    <name>fastjson适配器</name>
+    <name>SpineIO fastjson适配器</name>
 
     <dependencies>
         <dependency>

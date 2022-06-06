@@ -10,7 +10,6 @@ import java.util.Map;
 /**
  * 动画
  * @author ZhongPengCheng
- * @version 1.0
  * @since 2022-01-26 20:49:00
  */
 @Data
