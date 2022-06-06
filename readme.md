@@ -42,7 +42,7 @@
 
 - **危险的秦先生**
   - [B站](https://space.bilibili.com/53857152)
-  - [Gitee](https://gitee.com/ZhongPengCheng)
+  - [GitHub](https://github.com/ChZhongPengCheng33)
 - **凊弦凝绝Official**
   - [B站](https://space.bilibili.com/14435736/)
   - [GitHub](https://github.com/azurlane-doujin)
