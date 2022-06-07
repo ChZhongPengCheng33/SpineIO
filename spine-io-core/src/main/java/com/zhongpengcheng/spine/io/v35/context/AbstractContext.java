@@ -1,28 +1,24 @@
-package com.zhongpengcheng.spine.io.pipeline.context;
+package com.zhongpengcheng.spine.io.v35.context;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.io.FileUtil;
+import com.zhongpengcheng.spine.io.context.PipelineContext;
 import com.zhongpengcheng.spine.io.v35.pojo.*;
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
-import com.zhongpengcheng.spine.util.IOUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author ZhongPengCheng
- * @since 2022-06-06 21:28:00
+ * @since 2022-06-07 20:45:00
  */
 @Slf4j
 @Getter
 @Setter
-public class Spine35Context extends PipelineContext {
+public abstract class AbstractContext extends PipelineContext {
     /**
      * 当slot没有颜色时的默认值
      */
@@ -35,10 +31,6 @@ public class Spine35Context extends PipelineContext {
      * ik的bendPositive属性的默认值
      */
     public static final Byte DEFAULT_BEND_POSITIVE = 1;
-    /**
-     * 输入流
-     */
-    private Spine35DataInputStream input;
     /**
      * 是否需读取非必须数据
      */
@@ -79,18 +71,6 @@ public class Spine35Context extends PipelineContext {
      * 动作列表
      */
     private List<Animation> animations = new ArrayList<>();
-
-    public static Spine35Context of(String url) {
-        File file = FileUtil.file(url);
-        Spine35DataInputStream stream = new Spine35DataInputStream(IOUtil.inputStreamOf(file));
-        return of(stream);
-    }
-
-    public static Spine35Context of(Spine35DataInputStream input) {
-        Spine35Context ctx = new Spine35Context();
-        ctx.setInput(input);
-        return ctx;
-    }
 
     /**
      * 获取指定index的bone的名称
@@ -135,17 +115,7 @@ public class Spine35Context extends PipelineContext {
     }
 
     @Override
-    public void close() {
-        try {
-            input.close();
-            log.debug("[{}]-关闭文件输入流成功", this);
-        } catch (IOException e) {
-            log.error("[{}]-关闭文件输入流异常: {}", this, e);
-        }
-    }
-
-    @Override
     public String toString() {
-        return "Spine v3.5骨骼读取上下文";
+        return "Spine 3.5.*";
     }
 }

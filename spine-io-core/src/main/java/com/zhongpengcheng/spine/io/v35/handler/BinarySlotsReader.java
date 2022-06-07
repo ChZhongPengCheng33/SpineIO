@@ -1,9 +1,9 @@
 package com.zhongpengcheng.spine.io.v35.handler;
 
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
+import com.zhongpengcheng.spine.io.v35.context.BinaryContext;
 import com.zhongpengcheng.spine.io.v35.enums.BlendMode;
 import com.zhongpengcheng.spine.io.v35.pojo.Slot;
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import com.zhongpengcheng.spine.util.ColorUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,14 +16,14 @@ import java.io.IOException;
  * @since 2022-06-06 22:37:00
  */
 @Slf4j
-public class Spine35BinarySlotsReader extends AbstractSpine35BinReader {
+public class BinarySlotsReader extends AbstractBinaryReader {
     @Override
     public String getName() {
         return super.getName() + ":插槽读取器";
     }
 
     @Override
-    public boolean handle(Spine35Context ctx) throws IOException {
+    public boolean handle(BinaryContext ctx) throws IOException {
         Spine35DataInputStream input = ctx.getInput();
         for (int i = 0, n = input.readInt(true); i < n; i++) {
             Slot.SlotBuilder builder = Slot.builder();

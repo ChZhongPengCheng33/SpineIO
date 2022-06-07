@@ -1,8 +1,8 @@
 package com.zhongpengcheng.spine.io.v35.handler;
 
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
+import com.zhongpengcheng.spine.io.v35.context.BinaryContext;
 import com.zhongpengcheng.spine.io.v35.pojo.Head;
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -14,14 +14,14 @@ import java.io.IOException;
  * @since 2022-06-06 22:19:00
  */
 @Slf4j
-public class Spine35BinaryHeadReader extends AbstractSpine35BinReader {
+public class BinaryHeadReader extends AbstractBinaryReader {
     @Override
     public String getName() {
         return super.getName() + ":文件头读取器";
     }
 
     @Override
-    public boolean handle(Spine35Context ctx) throws IOException {
+    public boolean handle(BinaryContext ctx) throws IOException {
         Spine35DataInputStream input = ctx.getInput();
 
         Head.HeadBuilder builder = Head.builder()

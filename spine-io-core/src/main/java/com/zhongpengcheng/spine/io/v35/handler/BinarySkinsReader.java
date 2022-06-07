@@ -1,11 +1,11 @@
 package com.zhongpengcheng.spine.io.v35.handler;
 
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
+import com.zhongpengcheng.spine.io.v35.context.BinaryContext;
 import com.zhongpengcheng.spine.io.v35.enums.AttachmentType;
 import com.zhongpengcheng.spine.io.v35.pojo.Skin;
 import com.zhongpengcheng.spine.io.v35.pojo.Vertices;
 import com.zhongpengcheng.spine.io.v35.pojo.attachment.*;
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import com.zhongpengcheng.spine.util.ColorUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import java.util.*;
  * @since 2022-06-06 22:38:00
  */
 @Slf4j
-public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
+public class BinarySkinsReader extends AbstractBinaryReader {
     /**
      * 默认皮肤名称
      */
@@ -29,7 +29,7 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
     }
 
     @Override
-    public boolean handle(Spine35Context ctx) throws IOException {
+    public boolean handle(BinaryContext ctx) throws IOException {
         this.readDefaultSkin(ctx);
         this.readAnotherSkin(ctx);
 
@@ -39,7 +39,7 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
     /**
      * 读默认皮肤
      */
-    private void readDefaultSkin(Spine35Context ctx) throws IOException {
+    private void readDefaultSkin(BinaryContext ctx) throws IOException {
         Skin skin = this.readSkin(DEFAULT_SKIN, ctx);
         if (skin != null) ctx.getSkins().add(skin);
     }
@@ -47,7 +47,7 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
     /**
      * 读其他皮肤
      */
-    private void readAnotherSkin(Spine35Context ctx) throws IOException {
+    private void readAnotherSkin(BinaryContext ctx) throws IOException {
         Spine35DataInputStream input = ctx.getInput();
         for (int i = 0, skinCount = input.readInt(true); i < skinCount; i++) {
             Skin skin = readSkin(input.readString(), ctx);
@@ -60,7 +60,7 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
      * @param skinName 皮肤名称
      * @param ctx 上下文实例
      */
-    private Skin readSkin(String skinName, Spine35Context ctx) throws IOException  {
+    private Skin readSkin(String skinName, BinaryContext ctx) throws IOException  {
         Spine35DataInputStream input = ctx.getInput();
         int slotCount = input.readInt(true);
         if (slotCount == 0) {
@@ -88,7 +88,7 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
         /**
          * 上下文实例
          */
-        private final Spine35Context ctx;
+        private final BinaryContext ctx;
         /**
          * 插槽名称
          */
@@ -102,11 +102,11 @@ public class Spine35BinarySkinsReader extends AbstractSpine35BinReader {
          */
         private final Spine35DataInputStream input;
 
-        public static AttachmentsReader of(Spine35Context ctx, String slotName, int slotIndex) {
+        public static AttachmentsReader of(BinaryContext ctx, String slotName, int slotIndex) {
             return new AttachmentsReader(ctx, slotName, slotIndex);
         }
 
-        public AttachmentsReader(Spine35Context ctx, String slotName, int slotIndex) {
+        public AttachmentsReader(BinaryContext ctx, String slotName, int slotIndex) {
             this.ctx = ctx;
             this.slotName = slotName;
             this.slotIndex = slotIndex;

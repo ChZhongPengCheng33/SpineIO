@@ -1,4 +1,4 @@
-package com.zhongpengcheng.spine.io.v35.stream;
+package com.zhongpengcheng.spine.io.v35;
 
 import lombok.extern.slf4j.Slf4j;
 

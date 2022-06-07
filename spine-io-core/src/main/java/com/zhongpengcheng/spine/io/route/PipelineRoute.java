@@ -1,11 +1,9 @@
-package com.zhongpengcheng.spine.io.pipeline.route;
+package com.zhongpengcheng.spine.io.route;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
-import com.zhongpengcheng.spine.io.pipeline.context.PipelineContext;
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
-import com.zhongpengcheng.spine.io.pipeline.handler.ContextHandler;
-import com.zhongpengcheng.spine.io.v35.handler.*;
+import com.zhongpengcheng.spine.io.context.PipelineContext;
+import com.zhongpengcheng.spine.io.handler.ContextHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -30,17 +28,29 @@ public class PipelineRoute {
     private static Map<Class<? extends PipelineContext>, List<? extends ContextHandler<? extends PipelineContext>>> cacheRoute;
 
     static {
-        ROUTE_MAP.put(Spine35Context.class, CollectionUtil.toList(
-                Spine35BinaryHeadReader.class,
-                Spine35BinaryBonesReader.class,
-                Spine35BinarySlotsReader.class,
-                Spine35BinaryIksReader.class,
-                Spine35BinaryTransformsReader.class,
-                Spine35BinaryPathsReader.class,
-                Spine35BinarySkinsReader.class,
-                Spine35BinaryEventsReader.class,
-                Spine35BinaryAnimationsReader.class
+        // Spine v3.5.**
+        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v35.context.BinaryContext.class, CollectionUtil.toList(
+                com.zhongpengcheng.spine.io.v35.handler.BinaryHeadReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryBonesReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinarySlotsReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryIksReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryTransformsReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryPathsReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinarySkinsReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryEventsReader.class,
+                com.zhongpengcheng.spine.io.v35.handler.BinaryAnimationsReader.class
         ));
+        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v35.context.JsonContext.class, CollectionUtil.toList(
+
+        ));
+        // Spine v3.8.**
+        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v38.context.BinaryContext.class, CollectionUtil.toList(
+
+        ));
+        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v38.context.JsonContext.class, CollectionUtil.toList(
+
+        ));
+
     }
 
     /**

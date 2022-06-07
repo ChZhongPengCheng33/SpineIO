@@ -1,6 +1,7 @@
 package com.zhongpengcheng.spine.util;
 
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
+import cn.hutool.core.io.FileUtil;
+import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
@@ -15,7 +16,7 @@ import java.io.FileNotFoundException;
  * @since 2022-01-26 14:10:10
  **/
 @Slf4j
-public class IOUtil {
+public class IOUtils {
     /**
      * 从文件读取spine骨骼文件输入流
      * @param file 目标文件
@@ -29,5 +30,14 @@ public class IOUtil {
         }
 
         return null;
+    }
+
+    /**
+     * 从指定路径读取spine骨骼文件输入流
+     * @param url 文件路径
+     * @return 可能为空
+     */
+    public static Spine35DataInputStream inputStreamOf(String url) {
+        return inputStreamOf(FileUtil.file(url));
     }
 }

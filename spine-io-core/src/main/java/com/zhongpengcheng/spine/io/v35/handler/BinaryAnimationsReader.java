@@ -1,13 +1,13 @@
 package com.zhongpengcheng.spine.io.v35.handler;
 
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
+import com.zhongpengcheng.spine.io.v35.context.BinaryContext;
 import com.zhongpengcheng.spine.io.v35.pojo.Animation;
 import com.zhongpengcheng.spine.io.v35.pojo.Event;
 import com.zhongpengcheng.spine.io.v35.pojo.Path;
 import com.zhongpengcheng.spine.io.v35.pojo.Skin;
 import com.zhongpengcheng.spine.io.v35.pojo.attachment.IAttachment;
 import com.zhongpengcheng.spine.io.v35.pojo.timeline.*;
-import com.zhongpengcheng.spine.io.v35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import com.zhongpengcheng.spine.util.ColorUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,14 +24,14 @@ import java.util.Map;
  * @since 2022-06-06 22:38:00
  */
 @Slf4j
-public class Spine35BinaryAnimationsReader extends AbstractSpine35BinReader {
+public class BinaryAnimationsReader extends AbstractBinaryReader {
     @Override
     public String getName() {
         return super.getName() + ":动作读取器";
     }
 
     @Override
-    public boolean handle(Spine35Context ctx) throws IOException {
+    public boolean handle(BinaryContext ctx) throws IOException {
         Spine35DataInputStream input = ctx.getInput();
         for (int i = 0, animationCount = input.readInt(true); i < animationCount; i++) {
             String animationName = input.readString();
@@ -49,7 +49,9 @@ public class Spine35BinaryAnimationsReader extends AbstractSpine35BinReader {
         return true;
     }
 
-
+    /**
+     * 时间线读取器
+     */
     @Slf4j
     public static class TimelinesReader {
         public static final int SLOT_ATTACHMENT = 0;
@@ -65,6 +67,7 @@ public class Spine35BinaryAnimationsReader extends AbstractSpine35BinReader {
         public static final int PATH_SPACING = 1;
         public static final int PATH_MIX = 2;
 
+        public static final int CURVE_NONE = 0;
         public static final int CURVE_STEPPED = 1;
         public static final int CURVE_BEZIER = 2;
 
@@ -77,12 +80,12 @@ public class Spine35BinaryAnimationsReader extends AbstractSpine35BinReader {
         public static final String DRAW_ORDER_KEY = "drawOrder";
         public static final String EVENT_KEY = "events";
 
-        private Map<String, List<ITimeline>> timelines = new LinkedHashMap<>();
-        private Spine35DataInputStream input;
-        private Spine35Context ctx;
+        private final Map<String, List<ITimeline>> timelines = new LinkedHashMap<>();
+        private final Spine35DataInputStream input;
+        private final BinaryContext ctx;
 
 
-        public TimelinesReader(Spine35Context ctx) {
+        public TimelinesReader(BinaryContext ctx) {
             this.input = ctx.getInput();
             this.ctx = ctx;
         }
@@ -489,6 +492,8 @@ public class Spine35BinaryAnimationsReader extends AbstractSpine35BinReader {
         private void readCurve(CurveTimeline timeline, Integer frameIndex) throws IOException {
             byte curveType = input.readByte();
             switch (curveType) {
+                case CURVE_NONE:
+                    break;
                 case CURVE_STEPPED:
                     timeline.setStepped(true);
                     timeline.addFrameIndex(frameIndex);

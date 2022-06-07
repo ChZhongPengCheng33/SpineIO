@@ -1,8 +1,7 @@
 package com.zhongpengcheng.spine.io.v35.handler;
 
-import com.zhongpengcheng.spine.io.pipeline.context.Spine35Context;
-import com.zhongpengcheng.spine.io.pipeline.handler.ContextHandler;
-import com.zhongpengcheng.spine.io.v35.pojo.Bone;
+import com.zhongpengcheng.spine.io.v35.context.BinaryContext;
+import com.zhongpengcheng.spine.io.handler.ContextHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.util.List;
  * @since 2022-06-06 22:08:00
  */
 @Slf4j
-public abstract class AbstractSpine35BinReader implements ContextHandler<Spine35Context> {
+public abstract class AbstractBinaryReader implements ContextHandler<BinaryContext> {
     @Override
     public String getName() {
         return "Spine-v3.5二进制骨骼";
@@ -33,7 +32,7 @@ public abstract class AbstractSpine35BinReader implements ContextHandler<Spine35
      */
     protected static final Byte DEFAULT_BEND_POSITIVE = 1;
 
-    protected List<String> readDependBones(Spine35Context ctx) throws IOException {
+    protected List<String> readDependBones(BinaryContext ctx) throws IOException {
         List<String> dependBones = new ArrayList<>();
         for (int i = 0, boneCount = ctx.getInput().readInt(true); i < boneCount; i++) {
             dependBones.add(ctx.getBoneName(ctx.getInput().readInt(true)));
