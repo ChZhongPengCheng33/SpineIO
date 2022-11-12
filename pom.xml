@@ -13,7 +13,6 @@
 
     <modules>
         <module>spine-io-core</module>
-        <module>spine-io-spring-boot-starter</module>
         <module>spine-io-fastjson</module>
     </modules>
 
@@ -42,11 +41,6 @@
             <dependency>
                 <groupId>com.zhongpengcheng.spine</groupId>
                 <artifactId>spine-io-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zhongpengcheng.spine</groupId>
-                <artifactId>spine-io-spring-boot-starter</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -128,20 +122,14 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
