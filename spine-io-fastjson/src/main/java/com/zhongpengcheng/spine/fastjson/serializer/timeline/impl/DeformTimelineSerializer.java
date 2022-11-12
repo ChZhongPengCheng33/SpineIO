@@ -2,11 +2,11 @@ package com.zhongpengcheng.spine.fastjson.serializer.timeline.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zhongpengcheng.spine.fastjson.serializer.timeline.TimelineSerializer;
-import com.zhongpengcheng.spine.pojo.timeline.DeformTimeline;
-import com.zhongpengcheng.spine.pojo.timeline.ITimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.DeformTimeline;
+import com.zhongpengcheng.spine.io.v35.pojo.timeline.ITimeline;
 
 /**
- * {@link com.zhongpengcheng.spine.pojo.timeline.DeformTimeline}序列化器
+ * {@link DeformTimeline}序列化器
  * @author zhongpengcheng
  * @since 2022-02-18 16:58:15
  **/
