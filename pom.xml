@@ -36,6 +36,8 @@
         <mockito.version>4.5.1</mockito.version>
         <!--断言工具-->
         <assertj.version>3.23.1</assertj.version>
+        <!--字段映射工具-->
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
     <repositories>
         <repository>
@@ -145,6 +147,11 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
