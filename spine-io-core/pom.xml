@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>spine-io-core</artifactId>
-    <name>SpineIO核心模块</name>
+    <name>SpineIO Core</name>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

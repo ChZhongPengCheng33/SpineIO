@@ -22,6 +22,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <commons-lang3.version>3.10</commons-lang3.version>
+        <gdx.version>1.9.10</gdx.version>
+        <commons-io.version>2.2</commons-io.version>
+        <fastjson.version>1.2.83_noneautotype</fastjson.version>
+        <!--仅查看源码使用-->
+        <spine-libgdx.version>3.5.51.1</spine-libgdx.version>
+        <slf4j-api.version>1.7.32</slf4j-api.version>
+        <lombok.version>1.18.22</lombok.version>
+        <log4j.version>2.17.0</log4j.version>
+        <!--单测-->
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <mockito.version>4.5.1</mockito.version>
+        <!--断言工具-->
+        <assertj.version>3.23.1</assertj.version>
     </properties>
     <repositories>
         <repository>
@@ -52,69 +66,80 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.10</version>
+                <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.badlogicgames.gdx</groupId>
                 <artifactId>gdx</artifactId>
-                <version>1.9.10</version>
+                <version>${gdx.version}</version>
                 <scope>compile</scope>
                 <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.2</version>
+                <version>${commons-io.version}</version>
             </dependency>
             <!--JSON lib-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.9</version>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.esotericsoftware.spine</groupId>
                 <artifactId>spine-libgdx</artifactId>
-                <version>3.5.51.1</version>
+                <version>${spine-libgdx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
-                <version>5.6.3</version>
+                <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.32</version>
+                <version>${slf4j-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.22</version>
+                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>2.17.0</version>
+                <version>${log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.17.0</version>
+                <version>${log4j.version}</version>
             </dependency>
             <!--unit test-->
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>4.4.0</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
-                <version>4.4.0</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
