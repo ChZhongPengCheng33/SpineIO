@@ -14,7 +14,7 @@
 
 ## 功能开发进度
 
-- [ ] `v3.5 skel -> json`，100%
+- [x] `v3.5 skel -> json`，100%
 - [ ] `v3.5 json -> skel`，0%
 - [ ] `v3.6 skel -> json`，0%
 - [ ] `v3.6 json -> skel`，0%
