@@ -13,7 +13,6 @@
 
     <modules>
         <module>spine-io-core</module>
-        <module>spine-io-fastjson</module>
     </modules>
 
     <properties>
