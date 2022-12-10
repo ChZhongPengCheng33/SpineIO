@@ -137,7 +137,8 @@ public class BinarySkeletonReader implements Closeable {
             for (int i = 0; i < slotCount; i++) {
                 Slot slot = new Slot()
                         .setName(input.readString())
-                        .setBone(skeleton.getBoneName(input.readInt(true)));
+                        .setBone(skeleton.getBoneName(input.readInt(true)))
+                        .setId(i);
                 /*
                 注意: 3.5.51.2版本这里多了一个int读取
                 int color = input.readInt();
@@ -385,7 +386,7 @@ public class BinarySkeletonReader implements Closeable {
 
         public List<IAttachment> read() throws IOException {
             int attachmentCount = input.readInt(true);
-            List<IAttachment> attachments = new ArrayList<>();
+            List<IAttachment> attachments = new ArrayList<>(attachmentCount);
 
             for (int i = 0; i < attachmentCount; i++) {
                 String attachmentName = input.readString();
@@ -440,12 +441,12 @@ public class BinarySkeletonReader implements Closeable {
                     .setHeight(input.readFloat())
                     .setColor(ColorUtils.rgba8888ToHexColor(input.readInt()))
                     .setSlot(slotName)
-                    .setSlotIndex(this.slotIndex);
+                    .setSlotIndex(slotIndex);
         }
 
         private BoundingBoxAttachment readBoundingBoxAttachment(String attachmentName) throws IOException {
             int vertexCount = input.readInt(true);
-            Vertices vertices = this.readVertices(vertexCount);
+            Vertices vertices = readVertices(vertexCount);
             return new BoundingBoxAttachment()
                     .setWorldVerticesLength(vertexCount << 1)
                     .setVertices(vertices.getVertices())
@@ -453,7 +454,7 @@ public class BinarySkeletonReader implements Closeable {
                     .setColor(ColorUtils.rgba8888ToHexColor(skeleton.nonessential() ? input.readInt() : 0))
                     .setName(attachmentName)
                     .setSlot(slotName)
-                    .setSlotIndex(this.slotIndex);
+                    .setSlotIndex(slotIndex);
         }
 
         private MeshAttachment readMeshAttachment(String attachmentName) throws IOException {
@@ -489,7 +490,7 @@ public class BinarySkeletonReader implements Closeable {
                     .setHeight(height)
                     .setType(AttachmentType.MESH.getCode())
                     .setSlot(slotName)
-                    .setSlotIndex(this.slotIndex);
+                    .setSlotIndex(slotIndex);
         }
 
         private MeshAttachment readLinkedMeshAttachment(String attachmentName) throws IOException {
@@ -516,7 +517,7 @@ public class BinarySkeletonReader implements Closeable {
                     .setType(AttachmentType.LINKED_MESH.getCode())
                     .setName(attachmentName)
                     .setSlot(slotName)
-                    .setSlotIndex(this.slotIndex);
+                    .setSlotIndex(slotIndex);
         }
 
         private PathAttachment readPathAttachment(String attachmentName) throws IOException {
@@ -541,7 +542,7 @@ public class BinarySkeletonReader implements Closeable {
                     .setColor(ColorUtils.rgba8888ToHexColor(color))
                     .setType(AttachmentType.PATH.getCode())
                     .setSlot(slotName)
-                    .setSlotIndex(this.slotIndex);
+                    .setSlotIndex(slotIndex);
         }
 
         private Vertices readVertices(int vertexCount) throws IOException {
