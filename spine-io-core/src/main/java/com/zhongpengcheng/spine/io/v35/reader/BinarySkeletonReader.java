@@ -74,9 +74,10 @@ public class BinarySkeletonReader implements Closeable {
                     .setHash(input.readString(null))
                     .setVersion(input.readString(null))
                     .setWidth(input.readFloat())
-                    .setHeight(input.readFloat());
+                    .setHeight(input.readFloat())
+                    .setNonessential(input.readBoolean());
 
-            nonessential = input.readBoolean();
+            nonessential = head.getNonessential();
 
             if (nonessential) {
                 head.setFps(input.readFloat())
@@ -307,9 +308,24 @@ public class BinarySkeletonReader implements Closeable {
             List<Animation> animations = new ArrayList<>(animationCount);
 
             for (int i = 0; i < animationCount; i++) {
-                // TODO read single animation
+                String animationName = input.readString();
+                log.debug("read animation: {}", animationName);
+
+                TimelinesReader timelinesReader = new TimelinesReaderBuilder()
+                        .input(input)
+                        .skeleton(skeleton)
+                        .timelines(new LinkedHashMap<>())
+                        .build();
+                Map<String, List<ITimeline>> timelinesMap = timelinesReader.read();
+
+                Animation animation = new Animation()
+                        .setName(animationName)
+                        .setTimelineMap(timelinesMap);
+
+                animations.add(animation);
             }
 
+            skeleton.setAnimations(animations);
         } catch (IOException e) {
             log.error("读取[animations]部分时发生异常");
             throw new SpineIOException("读取[animations]部分时发生异常", e);

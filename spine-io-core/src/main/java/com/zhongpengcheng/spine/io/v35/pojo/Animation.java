@@ -2,8 +2,8 @@ package com.zhongpengcheng.spine.io.v35.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.io.v35.pojo.timeline.ITimeline;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,11 @@ import java.util.Map;
  * @author ZhongPengCheng
  * @since 2022-01-26 20:49:00
  */
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Animation {
     @Expose
