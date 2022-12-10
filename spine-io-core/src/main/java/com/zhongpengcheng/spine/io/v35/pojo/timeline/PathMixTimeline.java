@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -12,9 +13,13 @@ import java.util.List;
 @Getter
 @Setter
 public class PathMixTimeline extends CurveTimeline {
+    @Expose
     private int pathIndex;
+    @Expose
     private String pathName;
+    @Expose
     private String timelineType = "mix";
+    @Expose
     private List<Frame> frameList;
 
     public PathMixTimeline(int frameCount) {
@@ -29,8 +34,11 @@ public class PathMixTimeline extends CurveTimeline {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Frame {
+        @Expose
         private float time;
+        @Expose
         private float rotateMix;
+        @Expose
         private float translateMix;
     }
 }

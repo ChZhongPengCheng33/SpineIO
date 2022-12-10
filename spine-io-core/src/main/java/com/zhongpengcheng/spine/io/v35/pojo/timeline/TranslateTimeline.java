@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -15,9 +16,13 @@ import java.util.List;
 @Getter
 @Setter
 public class TranslateTimeline extends CurveTimeline {
+    @Expose
     private int boneIndex;
+    @Expose
     private String boneName;
+    @Expose
     private List<Frame> frameList;
+    @Expose
     private String timelineType;
 
     public TranslateTimeline(int frameCount) {
@@ -35,8 +40,11 @@ public class TranslateTimeline extends CurveTimeline {
     @Data
     @Builder
     public static class Frame {
+        @Expose
         private float time;
+        @Expose
         private float x;
+        @Expose
         private float y;
     }
 }

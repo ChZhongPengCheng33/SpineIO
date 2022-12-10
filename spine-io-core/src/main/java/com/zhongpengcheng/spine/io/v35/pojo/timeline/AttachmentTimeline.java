@@ -1,7 +1,8 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
-import lombok.Builder;
-import lombok.Data;
+import com.google.gson.annotations.Expose;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +11,17 @@ import java.util.List;
  * @author ZhongPengCheng
  * @since 2022-01-26 21:10:00
  */
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class AttachmentTimeline implements ITimeline {
+    @Expose
     private int slotIndex;
+    @Expose
     private String slotName;
+    @Expose
     private List<Frame> frameList;
 
     public AttachmentTimeline (int frameCount) {
@@ -27,7 +35,9 @@ public class AttachmentTimeline implements ITimeline {
     @Data
     @Builder
     public static class Frame {
+        @Expose
         private float time;
+        @Expose
         private String name;
 
         public static Frame of(float time, String name) {

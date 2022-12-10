@@ -1,11 +1,11 @@
 package com.zhongpengcheng.spine.io.v35.context;
 
-import cn.hutool.core.io.FileUtil;
+import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
 import com.zhongpengcheng.spine.util.IOUtils;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 
@@ -13,11 +13,11 @@ import java.io.IOException;
  * @author ZhongPengCheng
  * @since 2022-06-06 21:28:00
  */
-@Slf4j
 @Getter
 @Setter
 public class BinaryContext extends AbstractContext {
 
+    private transient static final Logger log = org.slf4j.LoggerFactory.getLogger(BinaryContext.class);
     /**
      * 输入流
      */

@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +16,15 @@ import java.util.List;
 public abstract class CurveTimeline implements ITimeline {
     static public final float LINEAR = 0, STEPPED = 1, BEZIER = 2;
     static public final int BEZIER_SIZE = 10 * 2 - 1;
+    @Expose
     private float[] curves = new float[4];
+    @Expose
     private boolean stepped = false;
+    @Expose
     private List<float[]> curveList = new ArrayList<>();
+    @Expose
     private List<Boolean> steppedList = new ArrayList<>();
+    @Expose
     private List<Integer> frameIndexList = new ArrayList<>();
 
     public void setCurve (float...curves) {

@@ -24,20 +24,6 @@ public class BinaryHeadReader extends AbstractBinaryReader {
     public boolean handle(BinaryContext ctx) throws IOException {
         Spine35DataInputStream input = ctx.getInput();
 
-        Head.HeadBuilder builder = Head.builder()
-                .hash(input.readString(null))
-                .version(input.readString(null))
-                .width(input.readFloat())
-                .height(input.readFloat());
-
-        boolean nonessential = input.readBoolean();
-        ctx.setNonessential(nonessential);
-
-        if (nonessential) {
-            builder.nonessential(true)
-                    .fps(input.readFloat())
-                    .images(input.readString(null));
-        }
 
         return true;
     }

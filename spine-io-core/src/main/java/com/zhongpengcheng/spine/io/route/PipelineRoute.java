@@ -40,17 +40,6 @@ public class PipelineRoute {
                 com.zhongpengcheng.spine.io.v35.handler.BinaryEventsReader.class,
                 com.zhongpengcheng.spine.io.v35.handler.BinaryAnimationsReader.class
         ));
-        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v35.context.JsonContext.class, CollectionUtil.toList(
-
-        ));
-        // Spine v3.8.**
-        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v38.context.BinaryContext.class, CollectionUtil.toList(
-
-        ));
-        ROUTE_MAP.put(com.zhongpengcheng.spine.io.v38.context.JsonContext.class, CollectionUtil.toList(
-
-        ));
-
     }
 
     /**

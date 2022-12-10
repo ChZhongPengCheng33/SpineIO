@@ -3,19 +3,21 @@ package com.zhongpengcheng.spine.io.context;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author ZhongPengCheng
  * @since 2022-06-06 21:06:00
  */
-@Slf4j
 @Getter
 @Setter
 public class PipelineContext implements Closeable {
+    private transient static final Logger log = LoggerFactory.getLogger(PipelineContext.class);
     /**
      * 处理开始时间
      */

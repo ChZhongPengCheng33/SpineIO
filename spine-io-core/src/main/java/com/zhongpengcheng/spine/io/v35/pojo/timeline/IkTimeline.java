@@ -1,6 +1,8 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +13,14 @@ import java.util.List;
  **/
 @Getter
 @Setter
+@Accessors(chain = true)
 public class IkTimeline extends CurveTimeline {
 
+    @Expose
     private int ikIndex;
+    @Expose
     private String ikName;
+    @Expose
     private List<Frame> frameList;
 
     public IkTimeline(int frameCount) {
@@ -29,8 +35,11 @@ public class IkTimeline extends CurveTimeline {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Frame {
+        @Expose
         private float time;
+        @Expose
         private float mix;
+        @Expose
         private int bendDirection;
     }
 }

@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -12,8 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 public class TransformTimeline extends CurveTimeline {
-    private int transformIndex;
-    private String transformName;
+    @Expose private int transformIndex;
+    @Expose private String transformName;
+    @Expose
     private List<Frame> frameList;
 
     public TransformTimeline(int frameCount) {
@@ -28,10 +30,10 @@ public class TransformTimeline extends CurveTimeline {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Frame {
-        private float time;
-        private float rotateMix;
-        private float translateMix;
-        private float scaleMix;
-        private float shearMix;
+        @Expose private float time;
+        @Expose private float rotateMix;
+        @Expose private float translateMix;
+        @Expose private float scaleMix;
+        @Expose private float shearMix;
     }
 }

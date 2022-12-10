@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.util.ColorUtils;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +22,9 @@ public class TwoColorTimeline extends CurveTimeline {
     static private final int PREV_R2 = -3, PREV_G2 = -2, PREV_B2 = -1;
     static private final int R = 1, G = 2, B = 3, A = 4, R2 = 5, G2 = 6, B2 = 7;
 
-    private int slotIndex;
-    private String slotName;
+    @Expose private int slotIndex;
+    @Expose private String slotName;
+    @Expose
     private List<Frame> frames;
 
     public TwoColorTimeline(int frameCount) {
@@ -36,8 +38,8 @@ public class TwoColorTimeline extends CurveTimeline {
     @Data
     @Builder
     public static class Frame {
-        private float time;
-        private ColorUtils.Color light;
-        private ColorUtils.Color dark;
+        @Expose private float time;
+        @Expose private ColorUtils.Color light;
+        @Expose private ColorUtils.Color dark;
     }
 }

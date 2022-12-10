@@ -1,15 +1,22 @@
 package com.zhongpengcheng.spine.io.v35.pojo;
 
-import lombok.Builder;
-import lombok.Data;
+import com.google.gson.annotations.Expose;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * @author ZhongPengCheng
  * @since 2021-03-02 18:50:00
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
 @Builder
 public class Vertices {
+    @Expose
     private Integer[] bones;
-    private Float[] vertices;
+
+    @Expose private Float[] vertices;
 }

@@ -2,12 +2,11 @@ package com.zhongpengcheng.spine.io.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.StopWatch;
-import com.zhongpengcheng.spine.io.handler.CommonPreHandler;
-import com.zhongpengcheng.spine.io.handler.ContextHandler;
 import com.zhongpengcheng.spine.io.context.PipelineContext;
-import com.zhongpengcheng.spine.io.handler.CommonPostHandler;
+import com.zhongpengcheng.spine.io.handler.ContextHandler;
 import com.zhongpengcheng.spine.io.route.PipelineRoute;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +17,14 @@ import java.util.stream.Collectors;
  * @author ZhongPengCheng
  * @since 2022-06-06 21:49:00
  */
-@Slf4j
 public class PipelineExecutor {
+    private static final Logger log = LoggerFactory.getLogger(PipelineExecutor.class);
     /**
      * 路由map
      */
     private static final Map<Class<? extends PipelineContext>, List<Object>> routeMap;
-    /**
-     * 通用前置处理
-     */
-    private static final CommonPreHandler commonPreHandler;
-    /**
-     * 通用后置处理
-     */
-    private static final CommonPostHandler commonPostHandler;
 
     static {
-        commonPreHandler = new CommonPreHandler();
-        commonPostHandler = new CommonPostHandler();
         routeMap = PipelineRoute.getRoute()
                 .entrySet()
                 .stream()
@@ -45,6 +34,7 @@ public class PipelineExecutor {
 
     /**
      * 同步执行管道
+     *
      * @param ctx 管道上下文
      * @return 执行结果
      */
@@ -62,7 +52,6 @@ public class PipelineExecutor {
             return false;
         }
 
-        commonPreHandler.handle(ctx);
         boolean finalRet = true;
         StopWatch sw = new StopWatch();
 
@@ -83,7 +72,6 @@ public class PipelineExecutor {
                 break;
             }
         }
-        commonPostHandler.handle(ctx);
         return finalRet;
     }
 }

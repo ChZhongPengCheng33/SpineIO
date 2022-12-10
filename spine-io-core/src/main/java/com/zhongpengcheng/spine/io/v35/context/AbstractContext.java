@@ -1,11 +1,12 @@
 package com.zhongpengcheng.spine.io.v35.context;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.io.context.PipelineContext;
 import com.zhongpengcheng.spine.io.v35.pojo.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,11 @@ import java.util.Optional;
  * @author ZhongPengCheng
  * @since 2022-06-07 20:45:00
  */
-@Slf4j
 @Getter
 @Setter
 public abstract class AbstractContext extends PipelineContext {
+    private transient static final Logger log = org.slf4j.LoggerFactory.getLogger(AbstractContext.class);
+
     /**
      * 当slot没有颜色时的默认值
      */
@@ -38,38 +40,47 @@ public abstract class AbstractContext extends PipelineContext {
     /**
      * 文件头信息
      */
+    @Expose
     private Head head;
     /**
      * 节点列表
      */
+    @Expose
     private List<Bone> bones = new ArrayList<>(DEFAULT_BONE_SIZE);
     /**
      * 插槽列表
      */
+    @Expose
     private List<Slot> slots = new ArrayList<>();
     /**
      * ik约束列表
      */
+    @Expose
     private List<Ik> iks = new ArrayList<>();
     /**
      * 旋转列表
      */
+    @Expose
     private List<Transform> transforms = new ArrayList<>();
     /**
      * 路径列表
      */
+    @Expose
     private List<Path> paths = new ArrayList<>();
     /**
      * 皮肤列表
      */
+    @Expose
     private List<Skin> skins = new ArrayList<>();
     /**
      * 事件列表
      */
+    @Expose
     private List<Event> events = new ArrayList<>();
     /**
      * 动作列表
      */
+    @Expose
     private List<Animation> animations = new ArrayList<>();
 
     /**

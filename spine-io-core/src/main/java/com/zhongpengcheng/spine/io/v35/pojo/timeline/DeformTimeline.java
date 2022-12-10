@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo.timeline;
 
+import com.google.gson.annotations.Expose;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -12,11 +13,17 @@ import java.util.List;
 @Getter
 @Setter
 public class DeformTimeline extends CurveTimeline {
+    @Expose
     private int slotIndex;
+    @Expose
     private int skinIndex;
+    @Expose
     private String slotName;
+    @Expose
     private String skinName;
+    @Expose
     private String attachmentName;
+    @Expose
     private List<Frame> frameList;
 
     public DeformTimeline(int frameCount) {
@@ -31,7 +38,9 @@ public class DeformTimeline extends CurveTimeline {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Frame {
+        @Expose
         private float time;
+        @Expose
         private float[] vertices;
     }
 }

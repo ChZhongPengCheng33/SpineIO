@@ -1,14 +1,18 @@
 package com.zhongpengcheng.spine.io.v35.pojo.attachment;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * @author ZhongPengCheng
  * @since 2021-03-02 18:48:00
  */
 @Builder
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class PathAttachment implements IAttachment {
     private String slot;
     private String type;

@@ -1,5 +1,6 @@
 package com.zhongpengcheng.spine.io.v35.pojo;
 
+import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.io.v35.pojo.timeline.ITimeline;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,8 @@ import java.util.Map;
 @Data
 @Builder
 public class Animation {
+    @Expose
     private Map<String, List<ITimeline>> timelineMap;
+    @Expose
     private String name;
 }
