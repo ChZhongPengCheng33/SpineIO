@@ -340,6 +340,7 @@ public class BinarySkeletonReader implements Closeable {
 
         // key: slotName, value: attachments
         Map<String, List<IAttachment>> attachmentMap = new LinkedHashMap<>(slotCount);
+
         for (int i = 0; i < slotCount; i++) {
             int slotIndex = input.readInt(true);
             String slotName = skeleton.getSlotName(slotIndex);
