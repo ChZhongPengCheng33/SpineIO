@@ -3,11 +3,15 @@ package com.zhongpengcheng.spine.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.zhongpengcheng.spine.io.v35.adapter.SkeletonAdapter;
-import com.zhongpengcheng.spine.io.v35.pojo.Skeleton;
-import com.zhongpengcheng.spine.io.v35.serializer.DoubleSerializer;
-import com.zhongpengcheng.spine.io.v35.serializer.FloatSerializer;
+import com.zhongpengcheng.spine.io.adapter.SkeletonAdapter;
+import com.zhongpengcheng.spine.io.pojo.Skeleton;
+import com.zhongpengcheng.spine.io.serializer.DoubleSerializer;
+import com.zhongpengcheng.spine.io.serializer.FloatSerializer;
 
+/**
+ * @author skyfire33
+ * @since 2022-12-10 18:40:00
+ */
 public class GsonUtils {
     public static Gson newInstance() {
         return baseGsonBuilder()

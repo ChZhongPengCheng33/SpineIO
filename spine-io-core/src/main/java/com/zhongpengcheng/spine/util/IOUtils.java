@@ -1,8 +1,9 @@
 package com.zhongpengcheng.spine.util;
 
 import cn.hutool.core.io.FileUtil;
-import com.zhongpengcheng.spine.io.v35.Spine35DataInputStream;
-import lombok.extern.slf4j.Slf4j;
+import com.zhongpengcheng.spine.io.stream.Spine35DataInputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,13 +13,15 @@ import java.io.FileNotFoundException;
 /**
  * IO工具类
  *
- * @author zhongpengcheng
+ * @author skyfire33
  * @since 2022-01-26 14:10:10
  **/
-@Slf4j
 public class IOUtils {
+    private static final Logger log = LoggerFactory.getLogger(IOUtils.class);
+
     /**
      * 从文件读取spine骨骼文件输入流
+     *
      * @param file 目标文件
      * @return 可能为空
      */
@@ -34,6 +37,7 @@ public class IOUtils {
 
     /**
      * 从指定路径读取spine骨骼文件输入流
+     *
      * @param url 文件路径
      * @return 可能为空
      */

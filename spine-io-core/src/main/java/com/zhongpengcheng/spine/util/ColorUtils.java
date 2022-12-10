@@ -1,14 +1,9 @@
 package com.zhongpengcheng.spine.util;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * @author ZhongPengCheng
+ * @author skyfire33
  * @since 2022-06-06 22:11:00
  */
-@Slf4j
 public class ColorUtils {
 
     /**
@@ -53,8 +48,6 @@ public class ColorUtils {
                 | (Integer.valueOf(hexColor.substring(7, 9), 16));
     }
 
-    @Data
-    @Accessors(chain = true)
     public static class Color {
         private float red;
         private float green;
@@ -75,10 +68,49 @@ public class ColorUtils {
             alpha = ((color & 0x000000ff)) / 255f;
         }
 
+        public Color() {
+        }
+
         @Override
         public String toString() {
             return Integer.toHexString((int) (red * 255F)) + Integer.toHexString((int) (green * 255F))
                     + Integer.toHexString((int) (blue * 255F)) + Integer.toHexString((int) (alpha * 255F));
+        }
+
+        public float getRed() {
+            return this.red;
+        }
+
+        public float getGreen() {
+            return this.green;
+        }
+
+        public float getBlue() {
+            return this.blue;
+        }
+
+        public float getAlpha() {
+            return this.alpha;
+        }
+
+        public Color setRed(float red) {
+            this.red = red;
+            return this;
+        }
+
+        public Color setGreen(float green) {
+            this.green = green;
+            return this;
+        }
+
+        public Color setBlue(float blue) {
+            this.blue = blue;
+            return this;
+        }
+
+        public Color setAlpha(float alpha) {
+            this.alpha = alpha;
+            return this;
         }
     }
 }
