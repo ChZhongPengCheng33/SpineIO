@@ -56,11 +56,6 @@
                 <artifactId>spine-io-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>com.zhongpengcheng.spine</groupId>
-                <artifactId>spine-io-fastjson</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
             <!--utils-->
             <dependency>
                 <groupId>org.apache.commons</groupId>

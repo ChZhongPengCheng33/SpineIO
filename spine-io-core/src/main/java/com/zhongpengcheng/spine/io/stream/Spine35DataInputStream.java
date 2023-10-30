@@ -1,9 +1,8 @@
 package com.zhongpengcheng.spine.io.stream;
 
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
+import cn.hutool.core.io.IoUtil;
+
+import java.io.*;
 
 /**
  * Spine数据读取流
@@ -18,24 +17,55 @@ public class Spine35DataInputStream extends DataInputStream {
         super(in);
     }
 
+    public static Spine35DataInputStream with(byte[] bytes) {
+        return new Spine35DataInputStream(IoUtil.toStream(bytes));
+    }
+
+    public static Spine35DataInputStream with(ByteArrayOutputStream output) {
+        return new Spine35DataInputStream(IoUtil.toStream(output));
+    }
+
     /**
      * Reads a 1-5 byte int.
      */
     public int readInt(boolean optimizePositive) throws IOException {
+        // 读取第一个字节
         int b = read();
-        int result = b & 0x7F;
-        if ((b & 0x80) != 0) {
+        // 结果为该字节低7位此时结果为：0b00000000_00000000_00000000_0xxxxxxx
+        int result = b & 0b01111111;
+        // 如果读取到的字节最高位不为0，则认为有后续值
+        if ((b & 0b10000000) != 0) {
+            // 读取下一个字节
             b = read();
-            result |= (b & 0x7F) << 7;
-            if ((b & 0x80) != 0) {
+            // 取读取到的字节的低7位并左移7 * 1位
+            int tmp = (b & 0b01111111) << 7;
+            // 将左移后的数值与上一步得到的result用或连接，此时结果为：0b00000000_00000000_00yyyyyy_yxxxxxxx
+            // 即第二个字节的低7位作为int的第二部分
+            result |= tmp;
+            // 如果当前读取到的字节高位不为0，则认为有后续值
+            if ((b & 0b10000000) != 0) {
+                // 读取下一个字节
                 b = read();
-                result |= (b & 0x7F) << 14;
-                if ((b & 0x80) != 0) {
+                // 取读取到的字节的低7位并左移7 * 2位
+                int tmp2 = (b & 0b01111111) << 14;
+                // 将左移后的数值与上一步得到的result用或连接，此时结果为：0b00000000_000zzzzz_zzyyyyyy_yxxxxxxx
+                result |= tmp2;
+                // 如果当前读取到的字节高位不为0，则认为有后续值
+                if ((b & 0b10000000) != 0) {
+                    // 读取下一个字节
                     b = read();
-                    result |= (b & 0x7F) << 21;
-                    if ((b & 0x80) != 0) {
+                    // 取读取到的字节的低7位并左移7 * 3位
+                    int tmp3 = (b & 0b01111111) << 21;
+                    // 将左移后的数值与上一步得到的result用或连接，此时结果为：0b0000XXXX_XXXzzzzz_zzyyyyyy_yxxxxxxx
+                    result |= tmp3;
+                    // 如果当前读取到的字节高位不为0，则认为有后续值
+                    if ((b & 0b10000000) != 0) {
+                        // 读取下一个字节
                         b = read();
-                        result |= (b & 0x7F) << 28;
+                        // 取读取到的字节的低7位并左移7 * 4位：0b01101111 -> 0bYYYY0000_00000000_00000000_00000000
+                        int tmp4 = (b & 0b01111111) << 28;
+                        // 将左移后的数值与上一步得到的result用或连接，此时结果为：0bYYYYXXXX_XXXzzzzz_zzyyyyyy_yxxxxxxx
+                        result |= tmp4;
                     }
                 }
             }
@@ -91,7 +121,7 @@ public class Spine35DataInputStream extends DataInputStream {
      */
     public String readString(String defaultValue) throws IOException {
         String str = this.readString();
-        return str == null || "".equals(str) ? defaultValue : str;
+        return str == null || str.isEmpty() ? defaultValue : str;
     }
 
     /**
