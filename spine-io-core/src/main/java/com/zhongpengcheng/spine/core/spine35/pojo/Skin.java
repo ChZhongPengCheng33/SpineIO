@@ -1,6 +1,5 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.core.spine35.pojo.attachment.IAttachment;
 
 import java.util.HashMap;
@@ -14,12 +13,12 @@ import java.util.Map;
  * @since 2022-01-26 15:29:47
  **/
 public class Skin {
-    @Expose
+    
     private String name;
     /**
      * key: slotName, value: attachments
      */
-    @Expose
+    
     private Map<String, List<IAttachment>> attachments;
     private Map<String, IAttachment> attachmentCache;
 

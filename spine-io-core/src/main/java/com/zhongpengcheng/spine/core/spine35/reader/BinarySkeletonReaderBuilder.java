@@ -2,20 +2,20 @@ package com.zhongpengcheng.spine.core.spine35.reader;
 
 import cn.hutool.core.lang.Assert;
 import com.zhongpengcheng.spine.exception.SpineIOException;
-import com.zhongpengcheng.spine.core.spine35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.SpineIODataInputStream;
 
 /**
  * @author skyfire33
  * @since 2022-12-10 18:40:00
  */
 public class BinarySkeletonReaderBuilder {
-    private Spine35DataInputStream input;
+    private SpineIODataInputStream input;
 
     public static BinarySkeletonReaderBuilder newInstance() {
         return new BinarySkeletonReaderBuilder();
     }
 
-    public BinarySkeletonReaderBuilder input(Spine35DataInputStream input) {
+    public BinarySkeletonReaderBuilder input(SpineIODataInputStream input) {
         this.input = input;
         return this;
     }

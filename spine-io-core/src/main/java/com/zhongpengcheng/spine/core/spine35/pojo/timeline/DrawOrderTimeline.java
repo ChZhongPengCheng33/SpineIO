@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,9 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-16 15:31:31
  **/
+@Getter
 public class DrawOrderTimeline implements ITimeline {
-    @Expose
+    
     private List<Frame> frameList;
 
     public DrawOrderTimeline(int frameCount) {
@@ -21,18 +22,14 @@ public class DrawOrderTimeline implements ITimeline {
         this.frameList.add(new Frame(time, offsets));
     }
 
-    public List<Frame> getFrameList() {
-        return this.frameList;
-    }
-
     public void setFrameList(List<Frame> frameList) {
         this.frameList = frameList;
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private List<Offset> offsets;
 
         public Frame(float time, List<Offset> offsets) {
@@ -61,11 +58,11 @@ public class DrawOrderTimeline implements ITimeline {
     }
 
     public static class Offset {
-        @Expose
+        
         private int slotIndex;
-        @Expose
+        
         private int offset;
-        @Expose
+        
         private String slotName;
 
         public Offset(int slotIndex, int offset, String slotName) {

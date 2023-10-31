@@ -5,7 +5,7 @@ import com.zhongpengcheng.spine.core.spine35.enums.*;
 import com.zhongpengcheng.spine.core.spine35.pojo.*;
 import com.zhongpengcheng.spine.core.spine35.pojo.attachment.*;
 import com.zhongpengcheng.spine.core.spine35.pojo.timeline.*;
-import com.zhongpengcheng.spine.core.spine35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.SpineIODataInputStream;
 import com.zhongpengcheng.spine.exception.SpineIOException;
 import com.zhongpengcheng.spine.util.ColorUtils;
 import org.slf4j.Logger;
@@ -40,13 +40,13 @@ public class BinarySkeletonReader implements Closeable {
     /**
      * 骨骼文件输入流
      */
-    private final Spine35DataInputStream input;
+    private final SpineIODataInputStream input;
     /**
      * 骨骼文件对象
      */
     private final Skeleton skeleton;
 
-    public BinarySkeletonReader(Spine35DataInputStream input) {
+    public BinarySkeletonReader(SpineIODataInputStream input) {
         this.input = input;
         this.skeleton = new Skeleton();
     }
@@ -73,185 +73,155 @@ public class BinarySkeletonReader implements Closeable {
 
     private void readHead() {
 
-        try {
-            Head head = new Head()
-                    .setHash(input.readString(null))
-                    .setVersion(input.readString(null))
-                    .setWidth(input.readFloat())
-                    .setHeight(input.readFloat())
-                    .setNonessential(input.readBoolean());
+        Head head = new Head()
+                .setHash(input.readString(null))
+                .setVersion(input.readString(null))
+                .setWidth(input.readFloat())
+                .setHeight(input.readFloat())
+                .setNonessential(input.readBoolean());
 
-            nonessential = head.getNonessential();
+        nonessential = head.getNonessential();
 
-            if (nonessential) {
-                head.setFps(input.readFloat())
-                        .setImages(input.readString(null));
-            }
-
-            skeleton.setHead(head);
-        } catch (IOException e) {
-            log.error("读取[skeleton]部分时发生异常");
-            throw new SpineIOException("读取[skeleton]部分发生异常", e);
+        if (nonessential) {
+            head.setFps(input.readFloat())
+                    .setImages(input.readString(null));
         }
+
+        skeleton.setHead(head);
     }
 
     private void readBones() {
-        try {
-            int boneCount = input.readInt(true);
-            List<Bone> bones = new ArrayList<>(boneCount);
+        int boneCount = input.readInt(true);
+        List<Bone> bones = new ArrayList<>(boneCount);
 
-            for (int i = 0; i < boneCount; i++) {
-                String boneName = input.readString();
-                Bone parent = i == 0 ? null : bones.get(input.readInt(true));
-                Bone bone = new Bone()
-                        .setName(boneName)
-                        .setId(i)
-                        .setParent(ofNullable(parent).map(Bone::getName).orElse(null))
-                        .setRotation(input.readFloat())
-                        .setX(input.readFloat())
-                        .setY(input.readFloat())
-                        .setScaleX(input.readFloat())
-                        .setScaleY(input.readFloat())
-                        .setShearX(input.readFloat())
-                        .setShearY(input.readFloat())
-                        .setLength(input.readFloat());
+        for (int i = 0; i < boneCount; i++) {
+            String boneName = input.readString();
+            Bone parent = i == 0 ? null : bones.get(input.readInt(true));
+            Bone bone = new Bone()
+                    .setName(boneName)
+                    .setId(i)
+                    .setParent(ofNullable(parent).map(Bone::getName).orElse(null))
+                    .setRotation(input.readFloat())
+                    .setX(input.readFloat())
+                    .setY(input.readFloat())
+                    .setScaleX(input.readFloat())
+                    .setScaleY(input.readFloat())
+                    .setShearX(input.readFloat())
+                    .setShearY(input.readFloat())
+                    .setLength(input.readFloat());
 
-                TransformMode transformMode = TransformMode.values()[input.readInt(true)];
-                if (transformMode != TransformMode.NORMAL) {
-                    bone.setTransformMode(transformMode.getCode());
-                }
-                if (nonessential) {
-                    bone.setColor(ColorUtils.rgba8888ToHexColor(input.readInt()));
-                }
-
-                bones.add(bone);
+            TransformMode transformMode = TransformMode.values()[input.readInt(true)];
+            if (transformMode != TransformMode.NORMAL) {
+                bone.setTransformMode(transformMode.getCode());
+            }
+            if (nonessential) {
+                bone.setColor(ColorUtils.rgba8888ToHexColor(input.readInt()));
             }
 
-            skeleton.setBones(bones);
-        } catch (IOException e) {
-            log.error("读取[bones]部分时发生异常");
-            throw new SpineIOException("读取[bones]部分时发生异常", e);
+            bones.add(bone);
         }
+
+        skeleton.setBones(bones);
     }
 
     private void readSlots() {
-        try {
-            int slotCount = input.readInt(true);
-            List<Slot> slots = new ArrayList<>(slotCount);
+        int slotCount = input.readInt(true);
+        List<Slot> slots = new ArrayList<>(slotCount);
 
-            for (int i = 0; i < slotCount; i++) {
-                Slot slot = new Slot()
-                        .setName(input.readString())
-                        .setBone(skeleton.getBoneName(input.readInt(true)))
-                        .setId(i);
-                /*
-                注意: 3.5.51.2版本这里多了一个int读取
-                int color = input.readInt();
-                 */
-                int darkColor = input.readInt();
-                if (darkColor != NO_SLOT_COLOR) {
-                    slot.setColor(ColorUtils.rgba8888ToHexColor(darkColor));
-                }
-                slot.setAttachment(input.readString());
-                BlendMode blendMode = BlendMode.values()[input.readInt(true)];
-                if (blendMode != BlendMode.NORMAL) {
-                    slot.setBlend(blendMode.getCode());
-                }
-
-                slots.add(slot);
+        for (int i = 0; i < slotCount; i++) {
+            Slot slot = new Slot()
+                    .setName(input.readString())
+                    .setBone(skeleton.getBoneName(input.readInt(true)))
+                    .setId(i);
+            /*
+            注意: 3.5.51.2版本这里多了一个int读取
+            int color = input.readInt();
+             */
+            int darkColor = input.readInt();
+            if (darkColor != NO_SLOT_COLOR) {
+                slot.setColor(ColorUtils.rgba8888ToHexColor(darkColor));
+            }
+            slot.setAttachment(input.readString());
+            BlendMode blendMode = BlendMode.values()[input.readInt(true)];
+            if (blendMode != BlendMode.NORMAL) {
+                slot.setBlend(blendMode.getCode());
             }
 
-            skeleton.setSlots(slots);
-        } catch (IOException e) {
-            log.error("读取[slots]部分时发生异常");
-            throw new SpineIOException("读取[slots]部分时发生异常", e);
+            slots.add(slot);
         }
+
+        skeleton.setSlots(slots);
     }
 
     private void readIks() {
-        try {
-            int ikCount = input.readInt(true);
-            List<Ik> iks = new ArrayList<>(ikCount);
+        int ikCount = input.readInt(true);
+        List<Ik> iks = new ArrayList<>(ikCount);
 
-            for (int i = 0; i < ikCount; i++) {
-                Ik ik = new Ik()
-                        .setName(input.readString())
-                        .setOrder(input.readInt(true))
-                        .setBones(readDependBones())
-                        .setTarget(skeleton.getBoneName(input.readInt(true)))
-                        .setMix(input.readFloat())
-                        .setBendPositive((int) input.readByte());
+        for (int i = 0; i < ikCount; i++) {
+            Ik ik = new Ik()
+                    .setName(input.readString())
+                    .setOrder(input.readInt(true))
+                    .setBones(readDependBones())
+                    .setTarget(skeleton.getBoneName(input.readInt(true)))
+                    .setMix(input.readFloat())
+                    .setBendPositive((int) input.readByte());
 
-                iks.add(ik);
-            }
-
-            skeleton.setIks(iks);
-        } catch (IOException e) {
-            log.error("读取[iks]部分时发生异常");
-            throw new SpineIOException("读取[iks]部分时发生异常", e);
+            iks.add(ik);
         }
+
+        skeleton.setIks(iks);
     }
 
     private void readTransforms() {
-        try {
-            int transformCount = input.readInt(true);
-            List<Transform> transforms = new ArrayList<>(transformCount);
+        int transformCount = input.readInt(true);
+        List<Transform> transforms = new ArrayList<>(transformCount);
 
-            for (int i = 0; i < transformCount; i++) {
-                Transform transform = new Transform()
-                        .setName(input.readString())
-                        .setOrder(input.readInt(true))
-                        .setBones(readDependBones())
-                        .setTarget(skeleton.getBoneName(input.readInt(true)))
-                        .setRotation(input.readFloat())
-                        .setX(input.readFloat())
-                        .setY(input.readFloat())
-                        .setScaleX(input.readFloat())
-                        .setScaleY(input.readFloat())
-                        .setShearY(input.readFloat())
-                        .setRotateMix(input.readFloat())
-                        .setTranslateMix(input.readFloat())
-                        .setScaleMix(input.readFloat())
-                        .setShearMix(input.readFloat());
+        for (int i = 0; i < transformCount; i++) {
+            Transform transform = new Transform()
+                    .setName(input.readString())
+                    .setOrder(input.readInt(true))
+                    .setBones(readDependBones())
+                    .setTarget(skeleton.getBoneName(input.readInt(true)))
+                    .setRotation(input.readFloat())
+                    .setX(input.readFloat())
+                    .setY(input.readFloat())
+                    .setScaleX(input.readFloat())
+                    .setScaleY(input.readFloat())
+                    .setShearY(input.readFloat())
+                    .setRotateMix(input.readFloat())
+                    .setTranslateMix(input.readFloat())
+                    .setScaleMix(input.readFloat())
+                    .setShearMix(input.readFloat());
 
-                transforms.add(transform);
-            }
-
-            skeleton.setTransforms(transforms);
-        } catch (IOException e) {
-            log.error("读取[transforms]部分时发生异常");
-            throw new SpineIOException("读取[transforms]部分时发生异常", e);
+            transforms.add(transform);
         }
+
+        skeleton.setTransforms(transforms);
     }
 
     private void readPaths() {
-        try {
-            int pathCount = input.readInt(true);
-            List<Path> paths = new ArrayList<>(pathCount);
+        int pathCount = input.readInt(true);
+        List<Path> paths = new ArrayList<>(pathCount);
 
-            for (int i = 0; i < pathCount; i++) {
-                Path path = new Path()
-                        .setName(input.readString())
-                        .setOrder(input.readInt(true))
-                        .setBones(readDependBones())
-                        .setTarget(skeleton.getSlotName(input.readInt(true)))
-                        .setPositionMode(PositionMode.values()[input.readInt(true)].getCode())
-                        .setSpacingMode(SpacingMode.values()[input.readInt(true)].getCode())
-                        .setRotateMode(RotateMode.values()[input.readInt(true)].getCode())
-                        .setRotation(input.readFloat())
-                        .setPosition(input.readFloat())
-                        .setSpacing(input.readFloat())
-                        .setRotateMix(input.readFloat())
-                        .setTranslateMix(input.readFloat());
+        for (int i = 0; i < pathCount; i++) {
+            Path path = new Path()
+                    .setName(input.readString())
+                    .setOrder(input.readInt(true))
+                    .setBones(readDependBones())
+                    .setTarget(skeleton.getSlotName(input.readInt(true)))
+                    .setPositionMode(PositionMode.values()[input.readInt(true)].getCode())
+                    .setSpacingMode(SpacingMode.values()[input.readInt(true)].getCode())
+                    .setRotateMode(RotateMode.values()[input.readInt(true)].getCode())
+                    .setRotation(input.readFloat())
+                    .setPosition(input.readFloat())
+                    .setSpacing(input.readFloat())
+                    .setRotateMix(input.readFloat())
+                    .setTranslateMix(input.readFloat());
 
-                paths.add(path);
-            }
-
-            skeleton.setPaths(paths);
-        } catch (IOException e) {
-            log.error("读取[paths]部分时发生异常");
-            throw new SpineIOException("读取[paths]部分时发生异常", e);
+            paths.add(path);
         }
+
+        skeleton.setPaths(paths);
     }
 
     private void readSkins() {
@@ -285,25 +255,20 @@ public class BinarySkeletonReader implements Closeable {
     }
 
     private void readEvents() {
-        try {
-            int eventCount = input.readInt(true);
-            List<Event> events = new ArrayList<>();
+        int eventCount = input.readInt(true);
+        List<Event> events = new ArrayList<>();
 
-            for (int i = 0; i < eventCount; i++) {
-                Event event = new Event()
-                        .setName(input.readString())
-                        .setAInt(input.readInt(false))
-                        .setAFloat(input.readFloat())
-                        .setAString(input.readString());
+        for (int i = 0; i < eventCount; i++) {
+            Event event = new Event()
+                    .setName(input.readString())
+                    .setAInt(input.readInt(false))
+                    .setAFloat(input.readFloat())
+                    .setAString(input.readString());
 
-                events.add(event);
-            }
-
-            skeleton.setEvents(events);
-        } catch (IOException e) {
-            log.error("读取[events]部分时发生异常");
-            throw new SpineIOException("读取[events]部分时发生异常", e);
+            events.add(event);
         }
+
+        skeleton.setEvents(events);
     }
 
     private void readAnimations() {
@@ -337,19 +302,14 @@ public class BinarySkeletonReader implements Closeable {
     }
 
     private List<String> readDependBones() {
-        try {
-            int boneCount = input.readInt(true);
-            List<String> dependBones = new ArrayList<>(boneCount);
+        int boneCount = input.readInt(true);
+        List<String> dependBones = new ArrayList<>(boneCount);
 
-            for (int i = 0; i < boneCount; i++) {
-                dependBones.add(skeleton.getBoneName(input.readInt(true)));
-            }
-
-            return dependBones;
-        } catch (IOException e) {
-            log.error("读取[DependBones]部分时发生异常");
-            throw new SpineIOException("读取[DependBones]部分时发生异常", e);
+        for (int i = 0; i < boneCount; i++) {
+            dependBones.add(skeleton.getBoneName(input.readInt(true)));
         }
+
+        return dependBones;
     }
 
     private Skin readSkin(String skinName) throws IOException {
@@ -387,7 +347,7 @@ public class BinarySkeletonReader implements Closeable {
     public static class AttachmentsReader {
         private static final Logger log = LoggerFactory.getLogger(AttachmentsReader.class);
 
-        private final Spine35DataInputStream input;
+        private final SpineIODataInputStream input;
         private final Skeleton skeleton;
         /**
          * 插槽名称
@@ -398,7 +358,7 @@ public class BinarySkeletonReader implements Closeable {
          */
         private final int slotIndex;
 
-        public AttachmentsReader(Spine35DataInputStream input, Skeleton skeleton, String slotName, int slotIndex) {
+        public AttachmentsReader(SpineIODataInputStream input, Skeleton skeleton, String slotName, int slotIndex) {
             this.input = input;
             this.skeleton = skeleton;
             this.slotName = slotName;
@@ -593,7 +553,7 @@ public class BinarySkeletonReader implements Closeable {
     }
 
     public static class AttachmentsReaderBuilder {
-        private Spine35DataInputStream input;
+        private SpineIODataInputStream input;
         private Skeleton skeleton;
         /**
          * 插槽名称
@@ -604,7 +564,7 @@ public class BinarySkeletonReader implements Closeable {
          */
         private int slotIndex;
 
-        public AttachmentsReaderBuilder input(Spine35DataInputStream input) {
+        public AttachmentsReaderBuilder input(SpineIODataInputStream input) {
             this.input = input;
             return this;
         }
@@ -671,10 +631,10 @@ public class BinarySkeletonReader implements Closeable {
         public static final String EVENT_KEY = "events";
 
         private final Map<String, List<ITimeline>> timelines;
-        private final Spine35DataInputStream input;
+        private final SpineIODataInputStream input;
         private final Skeleton skeleton;
 
-        public TimelinesReader(Map<String, List<ITimeline>> timelines, Spine35DataInputStream input, Skeleton skeleton) {
+        public TimelinesReader(Map<String, List<ITimeline>> timelines, SpineIODataInputStream input, Skeleton skeleton) {
             this.timelines = timelines;
             this.input = input;
             this.skeleton = skeleton;
@@ -1076,7 +1036,7 @@ public class BinarySkeletonReader implements Closeable {
 
     public static class TimelinesReaderBuilder {
         private Map<String, List<ITimeline>> timelines;
-        private Spine35DataInputStream input;
+        private SpineIODataInputStream input;
         private Skeleton skeleton;
 
         public TimelinesReaderBuilder timelines(Map<String, List<ITimeline>> timelines) {
@@ -1084,7 +1044,7 @@ public class BinarySkeletonReader implements Closeable {
             return this;
         }
 
-        public TimelinesReaderBuilder input(Spine35DataInputStream input) {
+        public TimelinesReaderBuilder input(SpineIODataInputStream input) {
             this.input = input;
             return this;
         }

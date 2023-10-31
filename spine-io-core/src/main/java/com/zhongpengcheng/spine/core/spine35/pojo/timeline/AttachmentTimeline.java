@@ -1,7 +1,5 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +8,11 @@ import java.util.List;
  * @since 2022-01-26 21:10:00
  */
 public class AttachmentTimeline implements ITimeline {
-    @Expose
+    
     private int slotIndex;
-    @Expose
+    
     private String slotName;
-    @Expose
+    
     private List<Frame> frameList;
 
     public AttachmentTimeline(int frameCount) {
@@ -62,9 +60,9 @@ public class AttachmentTimeline implements ITimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private String name;
 
         Frame(float time, String name) {

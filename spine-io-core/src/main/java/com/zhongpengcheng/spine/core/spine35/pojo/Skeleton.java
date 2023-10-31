@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -8,24 +8,25 @@ import java.util.List;
  * @author skyfire33
  * @since 2021-03-01 23:18:00
  */
+@Getter
 public class Skeleton {
-    @Expose
+    
     private Head head;
-    @Expose
+    
     private List<Bone> bones;
-    @Expose
+    
     private List<Slot> slots;
-    @Expose
+    
     private List<Ik> iks;
-    @Expose
+    
     private List<Transform> transforms;
-    @Expose
+    
     private List<Path> paths;
-    @Expose
+    
     private List<Skin> skins;
-    @Expose
+    
     private List<Event> events;
-    @Expose
+    
     private List<Animation> animations;
 
     public boolean nonessential() {
@@ -59,42 +60,6 @@ public class Skeleton {
 
     public String getTransformName(int transformIndex) {
         return transforms.get(transformIndex).getName();
-    }
-
-    public Head getHead() {
-        return this.head;
-    }
-
-    public List<Bone> getBones() {
-        return this.bones;
-    }
-
-    public List<Slot> getSlots() {
-        return this.slots;
-    }
-
-    public List<Ik> getIks() {
-        return this.iks;
-    }
-
-    public List<Transform> getTransforms() {
-        return this.transforms;
-    }
-
-    public List<Path> getPaths() {
-        return this.paths;
-    }
-
-    public List<Skin> getSkins() {
-        return this.skins;
-    }
-
-    public List<Event> getEvents() {
-        return this.events;
-    }
-
-    public List<Animation> getAnimations() {
-        return this.animations;
     }
 
     public Skeleton setHead(Head head) {

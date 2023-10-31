@@ -1,7 +1,7 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
 import com.zhongpengcheng.spine.core.spine35.pojo.timeline.ITimeline;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,10 +12,9 @@ import java.util.Map;
  * @author skyfire33
  * @since 2022-01-26 20:49:00
  */
+@Getter
 public class Animation {
-    @Expose
     private Map<String, List<ITimeline>> timelineMap;
-    @Expose
     private String name;
 
     public Animation(Map<String, List<ITimeline>> timelineMap, String name) {
@@ -24,14 +23,6 @@ public class Animation {
     }
 
     public Animation() {
-    }
-
-    public Map<String, List<ITimeline>> getTimelineMap() {
-        return this.timelineMap;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public Animation setTimelineMap(Map<String, List<ITimeline>> timelineMap) {

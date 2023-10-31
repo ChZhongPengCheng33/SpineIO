@@ -1,19 +1,13 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * @author skyfire33
  * @since 2021-03-03 14:28:00
  */
 public class Event {
-    @Expose
     String name;
-    @Expose
     Integer aInt = 0;
-    @Expose
     Float aFloat = 0F;
-    @Expose
     String aString = "";
 
     public Event(String name, Integer aInt, Float aFloat, String aString) {

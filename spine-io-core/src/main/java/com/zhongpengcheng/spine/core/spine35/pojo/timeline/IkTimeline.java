@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,14 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-15 17:13:48
  **/
+@Getter
 public class IkTimeline extends CurveTimeline {
 
-    @Expose
+    
     private int ikIndex;
-    @Expose
+    
     private String ikName;
-    @Expose
+    
     private List<Frame> frameList;
 
     public IkTimeline(int frameCount) {
@@ -24,18 +25,6 @@ public class IkTimeline extends CurveTimeline {
 
     public void addFrame(float time, float mix, int bendDirection) {
         this.frameList.add(new Frame(time, mix, bendDirection));
-    }
-
-    public int getIkIndex() {
-        return this.ikIndex;
-    }
-
-    public String getIkName() {
-        return this.ikName;
-    }
-
-    public List<Frame> getFrameList() {
-        return this.frameList;
     }
 
     public IkTimeline setIkIndex(int ikIndex) {
@@ -54,11 +43,11 @@ public class IkTimeline extends CurveTimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private float mix;
-        @Expose
+        
         private int bendDirection;
 
         public Frame(float time, float mix, int bendDirection) {

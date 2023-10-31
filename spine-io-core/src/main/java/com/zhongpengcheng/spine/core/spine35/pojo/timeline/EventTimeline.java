@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,11 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-16 15:53:35
  **/
+@Getter
 public class EventTimeline implements ITimeline {
-    @Expose
+    
     private String eventName;
-    @Expose
+    
     private List<Frame> frameList;
 
     public EventTimeline(int frameCount) {
@@ -21,14 +22,6 @@ public class EventTimeline implements ITimeline {
 
     public void addFrame(float time, String name, int intValue, float floatValue, String stringValue) {
         frameList.add(new Frame(time, name, intValue, floatValue, stringValue));
-    }
-
-    public String getEventName() {
-        return this.eventName;
-    }
-
-    public List<Frame> getFrameList() {
-        return this.frameList;
     }
 
     public void setEventName(String eventName) {
@@ -40,15 +33,15 @@ public class EventTimeline implements ITimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private String name;
-        @Expose
+        
         private int intValue;
-        @Expose
+        
         private float floatValue;
-        @Expose
+        
         private String stringValue;
 
         public Frame(float time, String name, int intValue, float floatValue, String stringValue) {

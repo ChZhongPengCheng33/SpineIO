@@ -1,16 +1,17 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 /**
  * @author skyfire33
  * @since 2021-03-02 18:50:00
  */
+@Getter
 public class Vertices {
-    @Expose
+    
     private Integer[] bones;
 
-    @Expose
+    
     private Float[] vertices;
 
     public Vertices(Integer[] bones, Float[] vertices) {
@@ -19,14 +20,6 @@ public class Vertices {
     }
 
     public Vertices() {
-    }
-
-    public Integer[] getBones() {
-        return this.bones;
-    }
-
-    public Float[] getVertices() {
-        return this.vertices;
     }
 
     public Vertices setBones(Integer[] bones) {

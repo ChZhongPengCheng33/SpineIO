@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,13 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-16 10:59:58
  **/
+@Getter
 public class TransformTimeline extends CurveTimeline {
-    @Expose
+    
     private int transformIndex;
-    @Expose
+    
     private String transformName;
-    @Expose
+    
     private List<Frame> frameList;
 
     public TransformTimeline(int frameCount) {
@@ -23,18 +24,6 @@ public class TransformTimeline extends CurveTimeline {
 
     public void addFrame(float time, float rotateMix, float translateMix, float scaleMix, float shearMix) {
         this.frameList.add(new Frame(time, rotateMix, translateMix, scaleMix, shearMix));
-    }
-
-    public int getTransformIndex() {
-        return this.transformIndex;
-    }
-
-    public String getTransformName() {
-        return this.transformName;
-    }
-
-    public List<Frame> getFrameList() {
-        return this.frameList;
     }
 
     public void setTransformIndex(int transformIndex) {
@@ -50,15 +39,15 @@ public class TransformTimeline extends CurveTimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private float rotateMix;
-        @Expose
+        
         private float translateMix;
-        @Expose
+        
         private float scaleMix;
-        @Expose
+        
         private float shearMix;
 
         public Frame(float time, float rotateMix, float translateMix, float scaleMix, float shearMix) {

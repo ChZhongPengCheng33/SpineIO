@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +9,19 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-16 14:47:15
  **/
+@Getter
 public class DeformTimeline extends CurveTimeline {
-    @Expose
+    
     private int slotIndex;
-    @Expose
+    
     private int skinIndex;
-    @Expose
+    
     private String slotName;
-    @Expose
+    
     private String skinName;
-    @Expose
+    
     private String attachmentName;
-    @Expose
+    
     private List<Frame> frameList;
 
     public DeformTimeline(int frameCount) {
@@ -29,30 +30,6 @@ public class DeformTimeline extends CurveTimeline {
 
     public void addFrame(float time, float[] vertices) {
         this.frameList.add(new Frame(time, vertices));
-    }
-
-    public int getSlotIndex() {
-        return this.slotIndex;
-    }
-
-    public int getSkinIndex() {
-        return this.skinIndex;
-    }
-
-    public String getSlotName() {
-        return this.slotName;
-    }
-
-    public String getSkinName() {
-        return this.skinName;
-    }
-
-    public String getAttachmentName() {
-        return this.attachmentName;
-    }
-
-    public List<Frame> getFrameList() {
-        return this.frameList;
     }
 
     public void setSlotIndex(int slotIndex) {
@@ -80,9 +57,9 @@ public class DeformTimeline extends CurveTimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private float[] vertices;
 
         public Frame(float time, float[] vertices) {

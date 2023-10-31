@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -10,18 +10,19 @@ import java.util.List;
  * @author skyfire33
  * @since 2021-03-02 2:03:00
  */
+@Getter
 public class Ik {
-    @Expose
+    
     private String name;
-    @Expose
+    
     private Integer order;
-    @Expose
+    
     private List<String> bones;
-    @Expose
+    
     private String target;
-    @Expose
+    
     private Float mix = 1F;
-    @Expose
+    
     private Integer bendPositive = 1;
 
     public Ik(String name, Integer order, List<String> bones, String target, Float mix, Integer bendPositive) {
@@ -34,30 +35,6 @@ public class Ik {
     }
 
     public Ik() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Integer getOrder() {
-        return this.order;
-    }
-
-    public List<String> getBones() {
-        return this.bones;
-    }
-
-    public String getTarget() {
-        return this.target;
-    }
-
-    public Float getMix() {
-        return this.mix;
-    }
-
-    public Integer getBendPositive() {
-        return this.bendPositive;
     }
 
     public Ik setName(String name) {

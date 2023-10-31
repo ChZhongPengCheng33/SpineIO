@@ -1,7 +1,5 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
-import com.google.gson.annotations.Expose;
-
 import java.util.List;
 
 /**
@@ -9,34 +7,34 @@ import java.util.List;
  * @since 2021-03-02 18:05:00
  */
 public class Path {
-    @Expose
+    
     private String name;
-    @Expose
+    
     private Integer order;
-    @Expose
+    
     private List<String> bones;
     /**
      * Slot
      */
-    @Expose
+    
     private String target;
-    @Expose
+    
     private String positionMode;
-    @Expose
+    
     private String spacingMode;
-    @Expose
+    
     private String rotateMode;
     /*default 0*/
-    @Expose
+    
     private Float rotation = 0F;
-    @Expose
+    
     private Float position = 0F;
-    @Expose
+    
     private Float spacing = 0F;
     /*default 1*/
-    @Expose
+    
     private Float rotateMix = 1F;
-    @Expose
+    
     private Float translateMix = 1F;
 
     public Path(String name, Integer order, List<String> bones, String target, String positionMode, String spacingMode, String rotateMode, Float rotation, Float position, Float spacing, Float rotateMix, Float translateMix) {

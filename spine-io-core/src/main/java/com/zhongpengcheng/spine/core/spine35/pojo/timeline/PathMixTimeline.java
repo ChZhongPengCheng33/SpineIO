@@ -1,6 +1,6 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.timeline;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,15 @@ import java.util.List;
  * @author skyfire33
  * @since 2022-02-16 14:38:46
  **/
+@Getter
 public class PathMixTimeline extends CurveTimeline {
-    @Expose
+    
     private int pathIndex;
-    @Expose
+    
     private String pathName;
-    @Expose
+    
     private String timelineType = "mix";
-    @Expose
+    
     private List<Frame> frameList;
 
     public PathMixTimeline(int frameCount) {
@@ -25,22 +26,6 @@ public class PathMixTimeline extends CurveTimeline {
 
     public void addFrame(float time, float rotateMix, float translateMix) {
         this.frameList.add(new Frame(time, rotateMix, translateMix));
-    }
-
-    public int getPathIndex() {
-        return this.pathIndex;
-    }
-
-    public String getPathName() {
-        return this.pathName;
-    }
-
-    public String getTimelineType() {
-        return this.timelineType;
-    }
-
-    public List<Frame> getFrameList() {
-        return this.frameList;
     }
 
     public void setPathIndex(int pathIndex) {
@@ -60,11 +45,11 @@ public class PathMixTimeline extends CurveTimeline {
     }
 
     public static class Frame {
-        @Expose
+        
         private float time;
-        @Expose
+        
         private float rotateMix;
-        @Expose
+        
         private float translateMix;
 
         public Frame(float time, float rotateMix, float translateMix) {

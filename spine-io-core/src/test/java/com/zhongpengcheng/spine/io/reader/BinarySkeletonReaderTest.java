@@ -1,9 +1,9 @@
 package com.zhongpengcheng.spine.io.reader;
 
+import com.zhongpengcheng.spine.SpineIO;
 import com.zhongpengcheng.spine.core.spine35.pojo.Skeleton;
 import com.zhongpengcheng.spine.core.spine35.reader.BinarySkeletonReader;
 import com.zhongpengcheng.spine.core.spine35.reader.BinarySkeletonReaderBuilder;
-import com.zhongpengcheng.spine.util.GsonUtils;
 import com.zhongpengcheng.spine.util.IOUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,17 +19,14 @@ class BinarySkeletonReaderTest {
             "stretchyman/stretchyman.skel",
             "tank/tank.skel"})
     void testRead(String path) {
-        Skeleton skeleton;
         try (BinarySkeletonReader reader = BinarySkeletonReaderBuilder
                 .newInstance()
                 .input(IOUtils.inputStreamOf(path))
                 .build()) {
-
-            skeleton = reader.read();
+            Skeleton skeleton = reader.read();
+            System.out.println(SpineIO.getObjectMapper().writeValueAsString(skeleton));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(GsonUtils.newInstanceWithPrettyPrinting().toJson(skeleton));
     }
 }

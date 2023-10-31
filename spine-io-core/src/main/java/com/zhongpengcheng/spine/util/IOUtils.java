@@ -2,7 +2,7 @@ package com.zhongpengcheng.spine.util;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import com.zhongpengcheng.spine.core.spine35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.io.SpineIODataInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +26,9 @@ public class IOUtils {
      * @param file 目标文件
      * @return 可能为空
      */
-    public static Spine35DataInputStream inputStreamOf(File file) {
+    public static SpineIODataInputStream inputStreamOf(File file) {
         try {
-            return new Spine35DataInputStream(new BufferedInputStream(new FileInputStream(file), 512));
+            return new SpineIODataInputStream(new BufferedInputStream(new FileInputStream(file), 512));
         } catch (FileNotFoundException e) {
             log.error("从文件读取流异常：" + file.getName(), e);
         }
@@ -42,7 +42,7 @@ public class IOUtils {
      * @param url 文件路径
      * @return 可能为空
      */
-    public static Spine35DataInputStream inputStreamOf(String url) {
+    public static SpineIODataInputStream inputStreamOf(String url) {
         return inputStreamOf(FileUtil.file(url));
     }
 
@@ -52,7 +52,7 @@ public class IOUtils {
      * @param bytes 字节数组
      * @return Spine输入流
      */
-    public static Spine35DataInputStream withBytes(byte[] bytes) {
-        return new Spine35DataInputStream(IoUtil.toStream(bytes));
+    public static SpineIODataInputStream withBytes(byte[] bytes) {
+        return new SpineIODataInputStream(IoUtil.toStream(bytes));
     }
 }

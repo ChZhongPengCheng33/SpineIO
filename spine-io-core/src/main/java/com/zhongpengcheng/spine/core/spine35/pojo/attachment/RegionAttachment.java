@@ -1,11 +1,13 @@
 package com.zhongpengcheng.spine.core.spine35.pojo.attachment;
 
 import com.zhongpengcheng.spine.core.spine35.enums.AttachmentType;
+import lombok.Getter;
 
 /**
  * @author skyfire33
  * @since 2021-03-02 18:48:00
  */
+@Getter
 public class RegionAttachment implements IAttachment {
     private String slot;
     private String type = AttachmentType.REGION.getCode();
@@ -67,58 +69,6 @@ public class RegionAttachment implements IAttachment {
     @Override
     public String getAttachmentName() {
         return this.name;
-    }
-
-    public String getSlot() {
-        return this.slot;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public Float getRotation() {
-        return this.rotation;
-    }
-
-    public Float getX() {
-        return this.x;
-    }
-
-    public Float getY() {
-        return this.y;
-    }
-
-    public Float getScaleX() {
-        return this.scaleX;
-    }
-
-    public Float getScaleY() {
-        return this.scaleY;
-    }
-
-    public Float getWidth() {
-        return this.width;
-    }
-
-    public Float getHeight() {
-        return this.height;
-    }
-
-    public String getColor() {
-        return this.color;
-    }
-
-    public int getSlotIndex() {
-        return this.slotIndex;
     }
 
     public RegionAttachment setSlot(String slot) {

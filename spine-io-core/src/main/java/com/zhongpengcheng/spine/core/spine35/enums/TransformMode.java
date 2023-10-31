@@ -44,5 +44,4 @@ public enum TransformMode {
         this.code = code;
         this.desc = desc;
     }
-
 }
