@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * 约束
+ * 逆运动约束
  *
  * @author skyfire33
  * @since 2021-03-02 2:03:00

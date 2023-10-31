@@ -1,11 +1,14 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
+import lombok.Getter;
+
 import java.util.List;
 
 /**
  * @author skyfire33
  * @since 2021-03-02 18:05:00
  */
+@Getter
 public class Path {
     
     private String name;
@@ -53,54 +56,6 @@ public class Path {
     }
 
     public Path() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Integer getOrder() {
-        return this.order;
-    }
-
-    public List<String> getBones() {
-        return this.bones;
-    }
-
-    public String getTarget() {
-        return this.target;
-    }
-
-    public String getPositionMode() {
-        return this.positionMode;
-    }
-
-    public String getSpacingMode() {
-        return this.spacingMode;
-    }
-
-    public String getRotateMode() {
-        return this.rotateMode;
-    }
-
-    public Float getRotation() {
-        return this.rotation;
-    }
-
-    public Float getPosition() {
-        return this.position;
-    }
-
-    public Float getSpacing() {
-        return this.spacing;
-    }
-
-    public Float getRotateMix() {
-        return this.rotateMix;
-    }
-
-    public Float getTranslateMix() {
-        return this.translateMix;
     }
 
     public Path setName(String name) {

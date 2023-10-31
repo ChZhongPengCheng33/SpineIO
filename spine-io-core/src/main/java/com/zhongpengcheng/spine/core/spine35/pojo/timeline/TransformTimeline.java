@@ -38,6 +38,7 @@ public class TransformTimeline extends CurveTimeline {
         this.frameList = frameList;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -59,26 +60,6 @@ public class TransformTimeline extends CurveTimeline {
         }
 
         public Frame() {
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public float getRotateMix() {
-            return this.rotateMix;
-        }
-
-        public float getTranslateMix() {
-            return this.translateMix;
-        }
-
-        public float getScaleMix() {
-            return this.scaleMix;
-        }
-
-        public float getShearMix() {
-            return this.shearMix;
         }
 
         public void setTime(float time) {

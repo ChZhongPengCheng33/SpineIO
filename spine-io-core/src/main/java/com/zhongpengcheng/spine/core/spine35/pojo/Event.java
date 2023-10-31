@@ -1,10 +1,13 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
+import lombok.Getter;
+
 /**
  * @author skyfire33
  * @since 2021-03-03 14:28:00
  */
 public class Event {
+    @Getter
     String name;
     Integer aInt = 0;
     Float aFloat = 0F;
@@ -18,10 +21,6 @@ public class Event {
     }
 
     public Event() {
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public Integer getAInt() {

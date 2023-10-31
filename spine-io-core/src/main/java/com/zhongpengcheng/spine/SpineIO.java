@@ -1,17 +1,14 @@
 package com.zhongpengcheng.spine;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.zhongpengcheng.spine.factory.SkeletonSerializeModuleFactory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 /**
  * SpineIO门面
@@ -27,15 +24,10 @@ public class SpineIO {
     public static final Version VERSION = new Version(1, 0, 0, null, "com.zhongpengcheng.spine", "spine-io");
 
     static {
-        SimpleModule module = new SimpleModule("SpineIO Deserializer", VERSION);
-        module.addSerializer(Float.class, new JsonSerializer<Float>() {
-            @Override
-            public void serialize(Float value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                gen.writeNumber(Math.round(value * 100) / 100);
-            }
-        });
+        SimpleModule skelModule = new SkeletonSerializeModuleFactory()
+                .createModule("Skeleton Serialize Module", VERSION);
         objectMapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .registerModule(module);
+                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .registerModule(skelModule);
     }
 }

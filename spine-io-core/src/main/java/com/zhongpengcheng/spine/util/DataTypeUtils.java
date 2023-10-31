@@ -125,6 +125,10 @@ public class DataTypeUtils {
         return leftPadding(Integer.toHexString(colorToInt(rgba)), '0', 8);
     }
 
+    public static String intToHexColor(int color) {
+        return colorToString(intToColor(color));
+    }
+
     public static float[] intToColor(int color) {
         return new float[] {
                 ((color & 0xff000000) >>> 24) / 255f,

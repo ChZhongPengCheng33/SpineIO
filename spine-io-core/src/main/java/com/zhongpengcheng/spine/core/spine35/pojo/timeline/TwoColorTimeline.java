@@ -44,6 +44,7 @@ public class TwoColorTimeline extends CurveTimeline {
         this.frames = frames;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -59,18 +60,6 @@ public class TwoColorTimeline extends CurveTimeline {
         }
 
         public Frame() {
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public ColorUtils.Color getLight() {
-            return this.light;
-        }
-
-        public ColorUtils.Color getDark() {
-            return this.dark;
         }
 
         public Frame setTime(float time) {

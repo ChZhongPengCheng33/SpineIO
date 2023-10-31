@@ -44,6 +44,7 @@ public class PathPositionTimeline extends CurveTimeline {
         this.frameList = frameList;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -56,14 +57,6 @@ public class PathPositionTimeline extends CurveTimeline {
         }
 
         public Frame() {
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public float getPosition() {
-            return this.position;
         }
 
         public void setTime(float time) {

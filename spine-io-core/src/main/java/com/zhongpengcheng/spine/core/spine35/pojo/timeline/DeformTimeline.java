@@ -56,6 +56,7 @@ public class DeformTimeline extends CurveTimeline {
         this.frameList = frameList;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -68,14 +69,6 @@ public class DeformTimeline extends CurveTimeline {
         }
 
         public Frame() {
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public float[] getVertices() {
-            return this.vertices;
         }
 
         public void setTime(float time) {

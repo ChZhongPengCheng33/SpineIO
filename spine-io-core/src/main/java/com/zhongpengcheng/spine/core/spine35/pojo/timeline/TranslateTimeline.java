@@ -48,6 +48,7 @@ public class TranslateTimeline extends CurveTimeline {
         this.timelineType = timelineType;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -67,18 +68,6 @@ public class TranslateTimeline extends CurveTimeline {
 
         public static FrameBuilder builder() {
             return new FrameBuilder();
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public float getX() {
-            return this.x;
-        }
-
-        public float getY() {
-            return this.y;
         }
 
         public Frame setTime(float time) {

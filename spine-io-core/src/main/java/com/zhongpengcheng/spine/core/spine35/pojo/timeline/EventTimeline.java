@@ -32,6 +32,7 @@ public class EventTimeline implements ITimeline {
         this.frameList = frameList;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -53,26 +54,6 @@ public class EventTimeline implements ITimeline {
         }
 
         public Frame() {
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public int getIntValue() {
-            return this.intValue;
-        }
-
-        public float getFloatValue() {
-            return this.floatValue;
-        }
-
-        public String getStringValue() {
-            return this.stringValue;
         }
 
         public void setTime(float time) {

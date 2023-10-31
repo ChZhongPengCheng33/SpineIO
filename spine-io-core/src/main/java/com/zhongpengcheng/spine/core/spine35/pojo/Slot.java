@@ -1,11 +1,14 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
+import lombok.Getter;
+
 /**
  * 插槽
  *
  * @author skyfire33
  * @since 2021-03-02 1:20:00
  */
+@Getter
 public class Slot {
     /**
      * 插槽名称
@@ -45,30 +48,6 @@ public class Slot {
     }
 
     public Slot() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public String getBone() {
-        return this.bone;
-    }
-
-    public String getAttachment() {
-        return this.attachment;
-    }
-
-    public String getColor() {
-        return this.color;
-    }
-
-    public String getBlend() {
-        return this.blend;
     }
 
     public Slot setName(String name) {

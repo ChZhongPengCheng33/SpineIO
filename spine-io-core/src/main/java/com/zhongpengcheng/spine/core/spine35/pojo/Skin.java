@@ -1,6 +1,7 @@
 package com.zhongpengcheng.spine.core.spine35.pojo;
 
 import com.zhongpengcheng.spine.core.spine35.pojo.attachment.IAttachment;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @author skyfire33
  * @since 2022-01-26 15:29:47
  **/
+@Getter
 public class Skin {
     
     private String name;
@@ -37,18 +39,6 @@ public class Skin {
             attachments.forEach((skinName, iAttachments) -> iAttachments.forEach(item -> attachmentCache.put(String.valueOf(31 * (31 + item.getAttachmentName().hashCode()) + item.getSlotIndex()), item)));
         }
         return attachmentCache.get(String.valueOf(31 * (31 + attachmentName.hashCode()) + slotIndex));
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Map<String, List<IAttachment>> getAttachments() {
-        return this.attachments;
-    }
-
-    public Map<String, IAttachment> getAttachmentCache() {
-        return this.attachmentCache;
     }
 
     public Skin setName(String name) {

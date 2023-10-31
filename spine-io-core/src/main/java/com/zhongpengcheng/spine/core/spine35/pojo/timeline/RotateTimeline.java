@@ -44,6 +44,7 @@ public class RotateTimeline extends CurveTimeline {
         this.timelineType = timelineType;
     }
 
+    @Getter
     public static class Frame {
         
         private float time;
@@ -53,14 +54,6 @@ public class RotateTimeline extends CurveTimeline {
         Frame(float time, float degrees) {
             this.time = time;
             this.degrees = degrees;
-        }
-
-        public float getTime() {
-            return this.time;
-        }
-
-        public float getDegrees() {
-            return this.degrees;
         }
 
         public void setTime(float time) {
