@@ -1,13 +1,18 @@
 package com.zhongpengcheng.spine.io.reader;
 
-import cn.hutool.core.io.IoUtil;
-import com.zhongpengcheng.spine.io.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.core.spine35.stream.Spine35DataInputStream;
+import com.zhongpengcheng.spine.util.DataTypeUtils;
+import com.zhongpengcheng.spine.util.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
+
+import static java.lang.Float.floatToRawIntBits;
 
 /**
  * @author zhongpengcheng
@@ -15,44 +20,30 @@ import java.util.ArrayList;
  */
 public class DataTypeTest {
 
-    @Test
-    void testReadBoolean() throws IOException {
-        try (Spine35DataInputStream in = withBytes(new byte[]{
-                0x00,
-                0x01,
-                0x00,
-                0x00
-        })) {
-            Assertions.assertFalse(in.readBoolean());
-            Assertions.assertTrue(in.readBoolean());
-            Assertions.assertFalse(in.readBoolean());
-            Assertions.assertFalse(in.readBoolean());
+
+    @ParameterizedTest
+    @ValueSource(bytes = {0x0, 0x1})
+    void testReadBoolean(byte num) throws IOException {
+        try (Spine35DataInputStream in = IOUtils.withBytes(new byte[]{num})) {
+            Assertions.assertEquals(num > 0, in.readBoolean());
         }
     }
 
-    @Test
-    void testReadShort() throws IOException {
-        short num = Short.MAX_VALUE;
-        short num2 = Short.MIN_VALUE;
-        short num3 = 0;
-        try (Spine35DataInputStream in = withBytes(new byte[]{
+    @ParameterizedTest
+    @ValueSource(shorts = {Short.MAX_VALUE, Short.MIN_VALUE, 0})
+    void testReadShort(int num) throws IOException {
+        try (Spine35DataInputStream in = IOUtils.withBytes(new byte[]{
                 (byte) ((num & 0xff00) >> 8),
                 (byte) ((num & 0x00ff)),
-                (byte) ((num2 & 0xff00) >> 8),
-                (byte) ((num2 & 0x00ff)),
-                (byte) ((num3 & 0xff00) >> 8),
-                (byte) ((num3 & 0x00ff)),
         })) {
             Assertions.assertEquals(num, in.readShort());
-            Assertions.assertEquals(num2, in.readShort());
-            Assertions.assertEquals(num3, in.readShort());
         }
     }
 
-    @Test
-    void testReadInt() throws IOException {
-        int num = Integer.MAX_VALUE;
-        try (Spine35DataInputStream in = withBytes(new byte[]{
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MAX_VALUE, Integer.MIN_VALUE, 0, 370308, -894185})
+    void testReadInt(int num) throws IOException {
+        try (Spine35DataInputStream in = IOUtils.withBytes(new byte[]{
                 (byte) ((num >>> 24) & 0x000000ff),
                 (byte) ((num >>> 16) & 0x000000ff),
                 (byte) ((num >>> 8) & 0x000000ff),
@@ -62,55 +53,66 @@ public class DataTypeTest {
         }
     }
 
-    @Test
-    void testReadVarint() throws IOException {
-        int num = 1717986918;
-        int part1 = num >>> 28;
-        int part2 = num << 4 >>> 25;
-        int part3 = num << 11 >>> 25;
-        int part4 = num << 18 >>> 25;
-        int part5 = num << 25 >>> 25;
-        int[] writeArray;
-        if (part1 != 0) {
-            part2 = 0b10000000 | part2;
-            part3 = 0b10000000 | part3;
-            part4 = 0b10000000 | part4;
-            part5 = 0b10000000 | part5;
-            writeArray = new int[]{part5, part4, part3, part2, part1};
-        } else if (part2 != 0) {
-            part3 = 0b10000000 | part3;
-            part4 = 0b10000000 | part4;
-            part5 = 0b10000000 | part5;
-            writeArray = new int[]{part5, part4, part3, part2};
-        } else if (part3 != 0) {
-            part4 = 0b10000000 | part4;
-            part5 = 0b10000000 | part5;
-            writeArray = new int[]{part5, part4, part3};
-        } else if (part4 != 0) {
-            part5 = 0b10000000 | part5;
-            writeArray = new int[]{part5, part4};
-        } else {
-            writeArray = new int[]{part5};
-        }
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MAX_VALUE, Integer.MIN_VALUE, 0, 114514, -829290})
+    void testReadVarint(int num) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        for (int i : writeArray) {
-            outputStream.write(i);
+
+        byte[] varintArray = DataTypeUtils.toPositiveVarint(num);
+        for (int i = varintArray.length - 1; i >= 0; i--) {
+            outputStream.write(varintArray[i]);
         }
+
         try (Spine35DataInputStream in = Spine35DataInputStream.with(outputStream)) {
             Assertions.assertEquals(num, in.readInt(true));
         }
     }
 
     @Test
-    void testRightBit() {
-        int num = Integer.MIN_VALUE;
-        System.out.println(Integer.toBinaryString(num));
-        System.out.println(Integer.toHexString(num));
-        System.out.println(Integer.toBinaryString(num >> 2));
-        System.out.println(Integer.toBinaryString(num >>> 2));
+    void testConvertToNegativeVarint() {
+        int[][] dataSource = new int[][]{
+                {-1073741824, 2147483647},
+                {-64, 127},
+                {2147483608, -80},
+                {0, 0},
+                {-240446, 480891},
+        };
+        for (int[] tuple : dataSource) {
+            Assertions.assertEquals(tuple[1], DataTypeUtils.toNegativeVarint(tuple[0]));
+        }
     }
 
-    private Spine35DataInputStream withBytes(byte[] bytes) {
-        return new Spine35DataInputStream(IoUtil.toStream(bytes));
+    @ParameterizedTest
+    @ValueSource(floats = {Float.MIN_VALUE, Float.MAX_VALUE, 0f, 622.72f})
+    void testReadFloat(float num) throws IOException {
+        try (Spine35DataInputStream in = Spine35DataInputStream.with(DataTypeUtils.floatToBytes(num))) {
+            Assertions.assertEquals(floatToRawIntBits(num), floatToRawIntBits(in.readFloat()));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"9Y564pL", "frighten", "我是bad man", ""})
+    void testReadString(String str) throws IOException {
+        try(Spine35DataInputStream in = IOUtils.withBytes(DataTypeUtils.strToBytes(str))) {
+            Assertions.assertEquals(str, in.readString());
+        }
+    }
+
+    @Test
+    void testReadNullString()throws IOException {
+        try(Spine35DataInputStream in = IOUtils.withBytes(DataTypeUtils.strToBytes(null))) {
+            Assertions.assertNull(in.readString());
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = {0.5f, 0.51f, 0.511f, 0.02f})
+    void testReadColor(float color) {
+        float[] colors = new float[] {color, color, color, color};
+
+        Assertions.assertArrayEquals(colors, DataTypeUtils.intToColor(DataTypeUtils.colorToInt(colors)), 0.01F);
+        System.out.println(DataTypeUtils.colorToInt(colors));
+        System.out.println(DataTypeUtils.colorToString(colors));
+        System.out.println(Arrays.toString(DataTypeUtils.colorToBytes(colors)));
     }
 }

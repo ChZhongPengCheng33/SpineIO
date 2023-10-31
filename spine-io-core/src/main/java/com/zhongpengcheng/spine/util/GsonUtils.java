@@ -3,10 +3,10 @@ package com.zhongpengcheng.spine.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.ToNumberPolicy;
-import com.zhongpengcheng.spine.io.adapter.SkeletonAdapter;
-import com.zhongpengcheng.spine.io.pojo.Skeleton;
-import com.zhongpengcheng.spine.io.serializer.DoubleSerializer;
-import com.zhongpengcheng.spine.io.serializer.FloatSerializer;
+import com.zhongpengcheng.spine.core.spine35.adapter.SkeletonAdapter;
+import com.zhongpengcheng.spine.core.spine35.pojo.Skeleton;
+import com.zhongpengcheng.spine.core.spine35.serializer.DoubleSerializer;
+import com.zhongpengcheng.spine.core.spine35.serializer.FloatSerializer;
 
 /**
  * @author skyfire33

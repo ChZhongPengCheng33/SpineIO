@@ -1,7 +1,8 @@
 package com.zhongpengcheng.spine.util;
 
 import cn.hutool.core.io.FileUtil;
-import com.zhongpengcheng.spine.io.stream.Spine35DataInputStream;
+import cn.hutool.core.io.IoUtil;
+import com.zhongpengcheng.spine.core.spine35.stream.Spine35DataInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,5 +44,15 @@ public class IOUtils {
      */
     public static Spine35DataInputStream inputStreamOf(String url) {
         return inputStreamOf(FileUtil.file(url));
+    }
+
+    /**
+     * 从字节数组构造输入流
+     *
+     * @param bytes 字节数组
+     * @return Spine输入流
+     */
+    public static Spine35DataInputStream withBytes(byte[] bytes) {
+        return new Spine35DataInputStream(IoUtil.toStream(bytes));
     }
 }
